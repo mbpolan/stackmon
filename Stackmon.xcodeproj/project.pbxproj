@@ -11,6 +11,31 @@
 		27DC2B52278A331400944DC7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B51278A331400944DC7 /* ContentView.swift */; };
 		27DC2B54278A331600944DC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27DC2B53278A331600944DC7 /* Assets.xcassets */; };
 		27DC2B57278A331600944DC7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27DC2B56278A331600944DC7 /* Preview Assets.xcassets */; };
+		27DC2B62278A35A100944DC7 /* SotoAthena in Frameworks */ = {isa = PBXBuildFile; productRef = 27DC2B61278A35A100944DC7 /* SotoAthena */; };
+		27DC2B64278A35A100944DC7 /* SotoElasticsearchService in Frameworks */ = {isa = PBXBuildFile; productRef = 27DC2B63278A35A100944DC7 /* SotoElasticsearchService */; };
+		27DC2B66278A35A100944DC7 /* SotoGlue in Frameworks */ = {isa = PBXBuildFile; productRef = 27DC2B65278A35A100944DC7 /* SotoGlue */; };
+		27DC2B68278A35A100944DC7 /* SotoIAM in Frameworks */ = {isa = PBXBuildFile; productRef = 27DC2B67278A35A100944DC7 /* SotoIAM */; };
+		27DC2B6A278A35A100944DC7 /* SotoLambda in Frameworks */ = {isa = PBXBuildFile; productRef = 27DC2B69278A35A100944DC7 /* SotoLambda */; };
+		27DC2B6C278A35A100944DC7 /* SotoS3 in Frameworks */ = {isa = PBXBuildFile; productRef = 27DC2B6B278A35A100944DC7 /* SotoS3 */; };
+		27DC2B6E278A35A100944DC7 /* SotoSNS in Frameworks */ = {isa = PBXBuildFile; productRef = 27DC2B6D278A35A100944DC7 /* SotoSNS */; };
+		27DC2B70278A35A100944DC7 /* SotoSQS in Frameworks */ = {isa = PBXBuildFile; productRef = 27DC2B6F278A35A100944DC7 /* SotoSQS */; };
+		27DC2B73278A4B5B00944DC7 /* S3Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B72278A4B5B00944DC7 /* S3Service.swift */; };
+		27DC2B76278A4D0E00944DC7 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B75278A4D0E00944DC7 /* AppState.swift */; };
+		27DC2B78278A4E1500944DC7 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B77278A4E1500944DC7 /* Profile.swift */; };
+		27DC2B7A278A6BF600944DC7 /* S3ServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B79278A6BF600944DC7 /* S3ServiceView.swift */; };
+		27DC2B7D278A778200944DC7 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B7C278A778200944DC7 /* SidebarView.swift */; };
+		27DC2B7F278A7AED00944DC7 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B7E278A7AED00944DC7 /* Events.swift */; };
+		27DC2B82278A7C4900944DC7 /* CenteredViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B81278A7C4900944DC7 /* CenteredViewModifier.swift */; };
+		27DC2B84278A82A400944DC7 /* S3BucketDetailEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B83278A82A400944DC7 /* S3BucketDetailEditorView.swift */; };
+		27DC2B86278A833D00944DC7 /* S3Bucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B85278A833D00944DC7 /* S3Bucket.swift */; };
+		27DC2B88278B5FE600944DC7 /* S3BucketListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B87278B5FE600944DC7 /* S3BucketListView.swift */; };
+		27DC2B8B278B6C4700944DC7 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B8A278B6C4700944DC7 /* DateFormatter.swift */; };
+		27DC2B8D278B75B500944DC7 /* SQSServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B8C278B75B500944DC7 /* SQSServiceView.swift */; };
+		27DC2B8F278B763200944DC7 /* SQSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B8E278B763200944DC7 /* SQSService.swift */; };
+		27DC2B91278B78B500944DC7 /* SQSQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B90278B78B500944DC7 /* SQSQueue.swift */; };
+		27DC2B93278B78FD00944DC7 /* SQSQueueListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B92278B78FD00944DC7 /* SQSQueueListView.swift */; };
+		27DC2B95278B942000944DC7 /* SQSSendMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B94278B942000944DC7 /* SQSSendMessageView.swift */; };
+		27DC2B97278B9B7D00944DC7 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B96278B9B7D00944DC7 /* String.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +45,24 @@
 		27DC2B53278A331600944DC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27DC2B56278A331600944DC7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		27DC2B58278A331600944DC7 /* Stackmon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Stackmon.entitlements; sourceTree = "<group>"; };
+		27DC2B72278A4B5B00944DC7 /* S3Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3Service.swift; sourceTree = "<group>"; };
+		27DC2B75278A4D0E00944DC7 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		27DC2B77278A4E1500944DC7 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		27DC2B79278A6BF600944DC7 /* S3ServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3ServiceView.swift; sourceTree = "<group>"; };
+		27DC2B7B278A71D700944DC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		27DC2B7C278A778200944DC7 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		27DC2B7E278A7AED00944DC7 /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
+		27DC2B81278A7C4900944DC7 /* CenteredViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredViewModifier.swift; sourceTree = "<group>"; };
+		27DC2B83278A82A400944DC7 /* S3BucketDetailEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3BucketDetailEditorView.swift; sourceTree = "<group>"; };
+		27DC2B85278A833D00944DC7 /* S3Bucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3Bucket.swift; sourceTree = "<group>"; };
+		27DC2B87278B5FE600944DC7 /* S3BucketListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3BucketListView.swift; sourceTree = "<group>"; };
+		27DC2B8A278B6C4700944DC7 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		27DC2B8C278B75B500944DC7 /* SQSServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQSServiceView.swift; sourceTree = "<group>"; };
+		27DC2B8E278B763200944DC7 /* SQSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQSService.swift; sourceTree = "<group>"; };
+		27DC2B90278B78B500944DC7 /* SQSQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQSQueue.swift; sourceTree = "<group>"; };
+		27DC2B92278B78FD00944DC7 /* SQSQueueListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQSQueueListView.swift; sourceTree = "<group>"; };
+		27DC2B94278B942000944DC7 /* SQSSendMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQSSendMessageView.swift; sourceTree = "<group>"; };
+		27DC2B96278B9B7D00944DC7 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +70,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27DC2B62278A35A100944DC7 /* SotoAthena in Frameworks */,
+				27DC2B6E278A35A100944DC7 /* SotoSNS in Frameworks */,
+				27DC2B64278A35A100944DC7 /* SotoElasticsearchService in Frameworks */,
+				27DC2B70278A35A100944DC7 /* SotoSQS in Frameworks */,
+				27DC2B66278A35A100944DC7 /* SotoGlue in Frameworks */,
+				27DC2B6C278A35A100944DC7 /* SotoS3 in Frameworks */,
+				27DC2B6A278A35A100944DC7 /* SotoLambda in Frameworks */,
+				27DC2B68278A35A100944DC7 /* SotoIAM in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,11 +103,16 @@
 		27DC2B4E278A331400944DC7 /* Stackmon */ = {
 			isa = PBXGroup;
 			children = (
-				27DC2B4F278A331400944DC7 /* StackmonApp.swift */,
-				27DC2B51278A331400944DC7 /* ContentView.swift */,
-				27DC2B53278A331600944DC7 /* Assets.xcassets */,
 				27DC2B58278A331600944DC7 /* Stackmon.entitlements */,
+				27DC2B7B278A71D700944DC7 /* Info.plist */,
+				27DC2B53278A331600944DC7 /* Assets.xcassets */,
+				27DC2B89278B6C3500944DC7 /* Extensions */,
+				27DC2B74278A4D0500944DC7 /* Models */,
 				27DC2B55278A331600944DC7 /* Preview Content */,
+				27DC2B71278A376500944DC7 /* Services */,
+				27DC2B5E278A332F00944DC7 /* System */,
+				27DC2B80278A7C3400944DC7 /* ViewModifiers */,
+				27DC2B5F278A333600944DC7 /* Views */,
 			);
 			path = Stackmon;
 			sourceTree = "<group>";
@@ -67,6 +123,67 @@
 				27DC2B56278A331600944DC7 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		27DC2B5E278A332F00944DC7 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				27DC2B4F278A331400944DC7 /* StackmonApp.swift */,
+				27DC2B7E278A7AED00944DC7 /* Events.swift */,
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
+		27DC2B5F278A333600944DC7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				27DC2B51278A331400944DC7 /* ContentView.swift */,
+				27DC2B83278A82A400944DC7 /* S3BucketDetailEditorView.swift */,
+				27DC2B87278B5FE600944DC7 /* S3BucketListView.swift */,
+				27DC2B79278A6BF600944DC7 /* S3ServiceView.swift */,
+				27DC2B7C278A778200944DC7 /* SidebarView.swift */,
+				27DC2B92278B78FD00944DC7 /* SQSQueueListView.swift */,
+				27DC2B8C278B75B500944DC7 /* SQSServiceView.swift */,
+				27DC2B94278B942000944DC7 /* SQSSendMessageView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		27DC2B71278A376500944DC7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				27DC2B72278A4B5B00944DC7 /* S3Service.swift */,
+				27DC2B8E278B763200944DC7 /* SQSService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		27DC2B74278A4D0500944DC7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				27DC2B75278A4D0E00944DC7 /* AppState.swift */,
+				27DC2B77278A4E1500944DC7 /* Profile.swift */,
+				27DC2B85278A833D00944DC7 /* S3Bucket.swift */,
+				27DC2B90278B78B500944DC7 /* SQSQueue.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		27DC2B80278A7C3400944DC7 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				27DC2B81278A7C4900944DC7 /* CenteredViewModifier.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		27DC2B89278B6C3500944DC7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				27DC2B8A278B6C4700944DC7 /* DateFormatter.swift */,
+				27DC2B96278B9B7D00944DC7 /* String.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -85,6 +202,16 @@
 			dependencies = (
 			);
 			name = Stackmon;
+			packageProductDependencies = (
+				27DC2B61278A35A100944DC7 /* SotoAthena */,
+				27DC2B63278A35A100944DC7 /* SotoElasticsearchService */,
+				27DC2B65278A35A100944DC7 /* SotoGlue */,
+				27DC2B67278A35A100944DC7 /* SotoIAM */,
+				27DC2B69278A35A100944DC7 /* SotoLambda */,
+				27DC2B6B278A35A100944DC7 /* SotoS3 */,
+				27DC2B6D278A35A100944DC7 /* SotoSNS */,
+				27DC2B6F278A35A100944DC7 /* SotoSQS */,
+			);
 			productName = Stackmon;
 			productReference = 27DC2B4C278A331400944DC7 /* Stackmon.app */;
 			productType = "com.apple.product-type.application";
@@ -113,6 +240,9 @@
 				Base,
 			);
 			mainGroup = 27DC2B43278A331400944DC7;
+			packageReferences = (
+				27DC2B60278A35A100944DC7 /* XCRemoteSwiftPackageReference "soto" */,
+			);
 			productRefGroup = 27DC2B4D278A331400944DC7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -139,8 +269,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27DC2B97278B9B7D00944DC7 /* String.swift in Sources */,
+				27DC2B88278B5FE600944DC7 /* S3BucketListView.swift in Sources */,
+				27DC2B7A278A6BF600944DC7 /* S3ServiceView.swift in Sources */,
+				27DC2B95278B942000944DC7 /* SQSSendMessageView.swift in Sources */,
 				27DC2B52278A331400944DC7 /* ContentView.swift in Sources */,
+				27DC2B84278A82A400944DC7 /* S3BucketDetailEditorView.swift in Sources */,
+				27DC2B8B278B6C4700944DC7 /* DateFormatter.swift in Sources */,
+				27DC2B91278B78B500944DC7 /* SQSQueue.swift in Sources */,
+				27DC2B7D278A778200944DC7 /* SidebarView.swift in Sources */,
+				27DC2B82278A7C4900944DC7 /* CenteredViewModifier.swift in Sources */,
+				27DC2B78278A4E1500944DC7 /* Profile.swift in Sources */,
+				27DC2B8D278B75B500944DC7 /* SQSServiceView.swift in Sources */,
+				27DC2B7F278A7AED00944DC7 /* Events.swift in Sources */,
+				27DC2B86278A833D00944DC7 /* S3Bucket.swift in Sources */,
 				27DC2B50278A331400944DC7 /* StackmonApp.swift in Sources */,
+				27DC2B73278A4B5B00944DC7 /* S3Service.swift in Sources */,
+				27DC2B93278B78FD00944DC7 /* SQSQueueListView.swift in Sources */,
+				27DC2B76278A4D0E00944DC7 /* AppState.swift in Sources */,
+				27DC2B8F278B763200944DC7 /* SQSService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,11 +421,13 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Stackmon/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Stackmon/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbpolan.Stackmon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -299,11 +448,13 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Stackmon/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Stackmon/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbpolan.Stackmon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -334,6 +485,60 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		27DC2B60278A35A100944DC7 /* XCRemoteSwiftPackageReference "soto" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/soto-project/soto.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		27DC2B61278A35A100944DC7 /* SotoAthena */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27DC2B60278A35A100944DC7 /* XCRemoteSwiftPackageReference "soto" */;
+			productName = SotoAthena;
+		};
+		27DC2B63278A35A100944DC7 /* SotoElasticsearchService */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27DC2B60278A35A100944DC7 /* XCRemoteSwiftPackageReference "soto" */;
+			productName = SotoElasticsearchService;
+		};
+		27DC2B65278A35A100944DC7 /* SotoGlue */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27DC2B60278A35A100944DC7 /* XCRemoteSwiftPackageReference "soto" */;
+			productName = SotoGlue;
+		};
+		27DC2B67278A35A100944DC7 /* SotoIAM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27DC2B60278A35A100944DC7 /* XCRemoteSwiftPackageReference "soto" */;
+			productName = SotoIAM;
+		};
+		27DC2B69278A35A100944DC7 /* SotoLambda */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27DC2B60278A35A100944DC7 /* XCRemoteSwiftPackageReference "soto" */;
+			productName = SotoLambda;
+		};
+		27DC2B6B278A35A100944DC7 /* SotoS3 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27DC2B60278A35A100944DC7 /* XCRemoteSwiftPackageReference "soto" */;
+			productName = SotoS3;
+		};
+		27DC2B6D278A35A100944DC7 /* SotoSNS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27DC2B60278A35A100944DC7 /* XCRemoteSwiftPackageReference "soto" */;
+			productName = SotoSNS;
+		};
+		27DC2B6F278A35A100944DC7 /* SotoSQS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27DC2B60278A35A100944DC7 /* XCRemoteSwiftPackageReference "soto" */;
+			productName = SotoSQS;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 27DC2B44278A331400944DC7 /* Project object */;
 }

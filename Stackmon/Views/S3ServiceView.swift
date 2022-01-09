@@ -1,5 +1,5 @@
 //
-//  S3BucketListView.swift
+//  S3ServiceView.swift
 //  Stackmon
 //
 //  Created by Mike Polan on 1/8/22.
@@ -8,27 +8,26 @@
 import SotoS3
 import SwiftUI
 
+// MARK: - View
+
 struct S3ServiceView: View {
     @EnvironmentObject private var appState: AppState
-    @StateObject private var viewModel: S3BucketListViewModel = S3BucketListViewModel()
+    @StateObject private var viewModel: S3ServiceViewModel = S3ServiceViewModel()
     
     var body: some View {
         VStack {
-            LazyVGrid(columns: [
-                GridItem(.flexible(minimum: 150)),
-                GridItem(.flexible(minimum: 150)),
-            ]) {
-                Text("Bucket Name")
-                Text("Created On")
-                
-                ForEach(viewModel.buckets) { bucket in
-                    Text(bucket.name ?? "")
-                    Text("Date")
-                }
+            switch viewModel.mode {
+            case .list:
+                S3BucketListView(buckets: $viewModel.buckets,
+                                 hasNoBuckets: hasNoBuckets,
+                                 onAdd: handleAddBucket,
+                                 onDelete: handleDeleteBucket)
+            case .new:
+                S3BucketDetailEditorView(onCommit: handleNewBucket,
+                                         onCancel: handleCloseNewBucket)
             }
-            
-            Spacer()
         }
+        .navigationTitle("Simple Storage Service (S3)")
         .sheet(isPresented: $viewModel.sheetShown, onDismiss: handleCloseSheet) {
             switch viewModel.sheet {
             case .error(let error):
@@ -38,13 +37,20 @@ struct S3ServiceView: View {
             }
         }
         .onAppear(perform: handleLoad)
+        .onRefresh(perform: handleLoad)
     }
     
     private var service: S3Service {
-        return S3Service(client: appState.client, profile: appState.profile)
+        S3Service(client: appState.client, profile: appState.profile)
+    }
+    
+    private var hasNoBuckets: Bool {
+        !viewModel.loading && viewModel.buckets.isEmpty
     }
     
     private func handleLoad() {
+        viewModel.loading = true
+        
         service.listBuckets(completion: { result in
             DispatchQueue.main.async {
                 switch result {
@@ -52,31 +58,82 @@ struct S3ServiceView: View {
                     viewModel.buckets = buckets
                 case .failure(let error):
                     print(error)
-                    viewModel.sheetShown = true
                     viewModel.sheet = .error(error)
                 }
+                
+                viewModel.loading = false
             }
         })
     }
     
+    private func handleAddBucket() {
+        viewModel.mode = .new
+    }
+    
+    private func handleNewBucket(_ request: S3.CreateBucketRequest) {
+        service.createBucket(request) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    viewModel.mode = .list
+                    handleLoad()
+                case .failure(let error):
+                    viewModel.sheet = .error(error)
+                }
+            }
+        }
+    }
+    
+    private func handleDeleteBucket(_ bucket: S3.Bucket) {
+        guard let name = bucket.name else { return }
+        
+        service.deleteBucket(name) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    viewModel.mode = .list
+                    handleLoad()
+                case .failure(let error):
+                    viewModel.sheet = .error(error)
+                }
+            }
+        }
+    }
+    
+    private func handleCloseNewBucket() {
+        viewModel.mode = .list
+    }
+    
     private func handleCloseSheet() {
-        viewModel.sheet = nil
-        viewModel.sheetShown = false
+        viewModel.sheet = .none
     }
 }
 
-class S3BucketListViewModel: ObservableObject {
+// MARK: - View Model
+
+class S3ServiceViewModel: ObservableObject {
+    @Published var mode: ViewMode = .list
     @Published var buckets: [S3.Bucket] = []
-    @Published var sheet: Sheet?
+    @Published var loading: Bool = true
+    @Published var sheet: Sheet = .none {
+        didSet {
+            switch sheet {
+            case .none:
+                sheetShown = false
+            default:
+                sheetShown = true
+            }
+        }
+    }
     @Published var sheetShown: Bool = false
     
-    enum Sheet {
-        case error(_ error: Error)
+    enum ViewMode {
+        case list
+        case new
     }
-}
-
-extension S3.Bucket: Identifiable {
-    public var id: String {
-        self.name ?? ""
+    
+    enum Sheet {
+        case none
+        case error(_ error: Error)
     }
 }
