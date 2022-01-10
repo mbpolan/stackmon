@@ -20,6 +20,8 @@ struct ContentView: View {
             Group {
                 if appState.serviceView == .s3 {
                     S3ServiceView()
+                } else if appState.serviceView == .sns {
+                    SNSServiceView()
                 } else if appState.serviceView == .sqs {
                     SQSServiceView()
                 } else {

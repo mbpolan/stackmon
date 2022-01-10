@@ -32,6 +32,8 @@ struct SidebarView: View {
         switch service {
         case .s3:
             return "S3"
+        case .sns:
+            return "SNS"
         case .sqs:
             return "SQS"
         }

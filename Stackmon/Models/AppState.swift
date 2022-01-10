@@ -17,6 +17,7 @@ class AppState: ObservableObject {
 
 enum StackService: Identifiable, CaseIterable {
     case s3
+    case sns
     case sqs
     
     var id: Self { self }

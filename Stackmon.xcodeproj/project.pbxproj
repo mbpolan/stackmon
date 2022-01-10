@@ -36,6 +36,11 @@
 		27DC2B93278B78FD00944DC7 /* SQSQueueListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B92278B78FD00944DC7 /* SQSQueueListView.swift */; };
 		27DC2B95278B942000944DC7 /* SQSSendMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B94278B942000944DC7 /* SQSSendMessageView.swift */; };
 		27DC2B97278B9B7D00944DC7 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B96278B9B7D00944DC7 /* String.swift */; };
+		27DC2B99278BA6CB00944DC7 /* SNSServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B98278BA6CB00944DC7 /* SNSServiceView.swift */; };
+		27DC2B9B278BA78F00944DC7 /* SNSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B9A278BA78F00944DC7 /* SNSService.swift */; };
+		27DC2B9D278BA8CB00944DC7 /* SNSTopicListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B9C278BA8CB00944DC7 /* SNSTopicListView.swift */; };
+		27DC2B9F278BAA2000944DC7 /* SNSTopic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B9E278BAA2000944DC7 /* SNSTopic.swift */; };
+		27DC2BA1278BADDB00944DC7 /* SNSTopicPublishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2BA0278BADDB00944DC7 /* SNSTopicPublishView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +68,11 @@
 		27DC2B92278B78FD00944DC7 /* SQSQueueListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQSQueueListView.swift; sourceTree = "<group>"; };
 		27DC2B94278B942000944DC7 /* SQSSendMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQSSendMessageView.swift; sourceTree = "<group>"; };
 		27DC2B96278B9B7D00944DC7 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		27DC2B98278BA6CB00944DC7 /* SNSServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSServiceView.swift; sourceTree = "<group>"; };
+		27DC2B9A278BA78F00944DC7 /* SNSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSService.swift; sourceTree = "<group>"; };
+		27DC2B9C278BA8CB00944DC7 /* SNSTopicListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSTopicListView.swift; sourceTree = "<group>"; };
+		27DC2B9E278BAA2000944DC7 /* SNSTopic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSTopic.swift; sourceTree = "<group>"; };
+		27DC2BA0278BADDB00944DC7 /* SNSTopicPublishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSTopicPublishView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,9 +152,12 @@
 				27DC2B87278B5FE600944DC7 /* S3BucketListView.swift */,
 				27DC2B79278A6BF600944DC7 /* S3ServiceView.swift */,
 				27DC2B7C278A778200944DC7 /* SidebarView.swift */,
+				27DC2B98278BA6CB00944DC7 /* SNSServiceView.swift */,
+				27DC2B9C278BA8CB00944DC7 /* SNSTopicListView.swift */,
+				27DC2BA0278BADDB00944DC7 /* SNSTopicPublishView.swift */,
 				27DC2B92278B78FD00944DC7 /* SQSQueueListView.swift */,
-				27DC2B8C278B75B500944DC7 /* SQSServiceView.swift */,
 				27DC2B94278B942000944DC7 /* SQSSendMessageView.swift */,
+				27DC2B8C278B75B500944DC7 /* SQSServiceView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -153,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				27DC2B72278A4B5B00944DC7 /* S3Service.swift */,
+				27DC2B9A278BA78F00944DC7 /* SNSService.swift */,
 				27DC2B8E278B763200944DC7 /* SQSService.swift */,
 			);
 			path = Services;
@@ -165,6 +179,7 @@
 				27DC2B77278A4E1500944DC7 /* Profile.swift */,
 				27DC2B85278A833D00944DC7 /* S3Bucket.swift */,
 				27DC2B90278B78B500944DC7 /* SQSQueue.swift */,
+				27DC2B9E278BAA2000944DC7 /* SNSTopic.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -274,20 +289,25 @@
 				27DC2B7A278A6BF600944DC7 /* S3ServiceView.swift in Sources */,
 				27DC2B95278B942000944DC7 /* SQSSendMessageView.swift in Sources */,
 				27DC2B52278A331400944DC7 /* ContentView.swift in Sources */,
+				27DC2B9D278BA8CB00944DC7 /* SNSTopicListView.swift in Sources */,
 				27DC2B84278A82A400944DC7 /* S3BucketDetailEditorView.swift in Sources */,
 				27DC2B8B278B6C4700944DC7 /* DateFormatter.swift in Sources */,
 				27DC2B91278B78B500944DC7 /* SQSQueue.swift in Sources */,
+				27DC2BA1278BADDB00944DC7 /* SNSTopicPublishView.swift in Sources */,
 				27DC2B7D278A778200944DC7 /* SidebarView.swift in Sources */,
 				27DC2B82278A7C4900944DC7 /* CenteredViewModifier.swift in Sources */,
 				27DC2B78278A4E1500944DC7 /* Profile.swift in Sources */,
 				27DC2B8D278B75B500944DC7 /* SQSServiceView.swift in Sources */,
 				27DC2B7F278A7AED00944DC7 /* Events.swift in Sources */,
 				27DC2B86278A833D00944DC7 /* S3Bucket.swift in Sources */,
+				27DC2B9F278BAA2000944DC7 /* SNSTopic.swift in Sources */,
 				27DC2B50278A331400944DC7 /* StackmonApp.swift in Sources */,
+				27DC2B99278BA6CB00944DC7 /* SNSServiceView.swift in Sources */,
 				27DC2B73278A4B5B00944DC7 /* S3Service.swift in Sources */,
 				27DC2B93278B78FD00944DC7 /* SQSQueueListView.swift in Sources */,
 				27DC2B76278A4D0E00944DC7 /* AppState.swift in Sources */,
 				27DC2B8F278B763200944DC7 /* SQSService.swift in Sources */,
+				27DC2B9B278BA78F00944DC7 /* SNSService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
