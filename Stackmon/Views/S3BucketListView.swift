@@ -28,8 +28,8 @@ struct S3BucketListView: View {
                 ScrollView {
                     VStack {
                         LazyVGrid(columns: [
-                            GridItem(.flexible(minimum: 150)),
-                            GridItem(.flexible(minimum: 150)),
+                            GridItem(.flexible(minimum: 150), spacing: 0),
+                            GridItem(.flexible(minimum: 150), spacing: 0),
                         ], spacing: 0) {
                             Text("Bucket Name")
                                 .bold()
@@ -42,10 +42,12 @@ struct S3BucketListView: View {
                                 S3BucketListCellView(text: bucket.name ?? "",
                                                      onTapGesture: { handleSelection(bucket) },
                                                      onDelete: { onDelete(bucket) })
+                                    .background(viewModel.selection == bucket.name ? Color.accentColor : nil)
                                 
                                 S3BucketListCellView(text: DateFormatter.formatListView(bucket.creationDate),
                                                      onTapGesture: { handleSelection(bucket) },
                                                      onDelete: { onDelete(bucket) })
+                                    .background(viewModel.selection == bucket.name ? Color.accentColor : nil)
                             }
                         }
                     }
@@ -89,7 +91,7 @@ fileprivate struct S3BucketListCellView: View {
     var body: some View {
         HStack {
             Text(text)
-                .padding([.trailing, .top, .bottom], 3)
+                .padding(4)
         }
         .frame(maxWidth: .infinity)
         .contentShape(Rectangle())

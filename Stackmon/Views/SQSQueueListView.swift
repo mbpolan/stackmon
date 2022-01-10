@@ -30,11 +30,11 @@ struct SQSQueueListView: View {
                 ScrollView {
                     VStack {
                         LazyVGrid(columns: [
-                            GridItem(.flexible(minimum: 150)),
-                            GridItem(.flexible(minimum: 100)),
-                            GridItem(.flexible(minimum: 50)),
-                            GridItem(.flexible(minimum: 50)),
-                            GridItem(.flexible(minimum: 150)),
+                            GridItem(.flexible(minimum: 150), spacing: 0),
+                            GridItem(.flexible(minimum: 100), spacing: 0),
+                            GridItem(.flexible(minimum: 50), spacing: 0),
+                            GridItem(.flexible(minimum: 50), spacing: 0),
+                            GridItem(.flexible(minimum: 150), spacing: 0),
                         ], spacing: 0) {
                             Text("Queue Name")
                                 .bold()
@@ -63,30 +63,35 @@ struct SQSQueueListView: View {
                                                      onSendMessage: { onSendMessage(queue) },
                                                      onDelete: { onDelete(queue) },
                                                      onPurge: { onPurge(queue) })
+                                    .background(viewModel.selection == queue.queueURL ? Color.accentColor : nil)
                                 
                                 SQSQueueListCellView(text: textForType(queue.type),
                                                      onTapGesture: { handleSelection(queue) },
                                                      onSendMessage: { onSendMessage(queue) },
                                                      onDelete: { onDelete(queue) },
                                                      onPurge: { onPurge(queue) })
+                                    .background(viewModel.selection == queue.queueURL ? Color.accentColor : nil)
                                 
                                 SQSQueueListCellView(text: textForNumber(queue.numVisibleMessages),
                                                      onTapGesture: { handleSelection(queue) },
                                                      onSendMessage: { onSendMessage(queue) },
                                                      onDelete: { onDelete(queue) },
                                                      onPurge: { onPurge(queue) })
+                                    .background(viewModel.selection == queue.queueURL ? Color.accentColor : nil)
                                 
                                 SQSQueueListCellView(text: textForNumber(queue.numVisibleMessages),
                                                      onTapGesture: { handleSelection(queue) },
                                                      onSendMessage: { onSendMessage(queue) },
                                                      onDelete: { onDelete(queue) },
                                                      onPurge: { onPurge(queue) })
+                                    .background(viewModel.selection == queue.queueURL ? Color.accentColor : nil)
                                 
                                 SQSQueueListCellView(text: DateFormatter.formatListView(queue.created),
                                                      onTapGesture: { handleSelection(queue) },
                                                      onSendMessage: { onSendMessage(queue) },
                                                      onDelete: { onDelete(queue) },
                                                      onPurge: { onPurge(queue) })
+                                    .background(viewModel.selection == queue.queueURL ? Color.accentColor : nil)
                             }
                         }
                     }
@@ -145,7 +150,7 @@ fileprivate struct SQSQueueListCellView: View {
     var body: some View {
         HStack {
             Text(text)
-                .padding([.trailing, .top, .bottom], 3)
+                .padding(4)
         }
         .frame(maxWidth: .infinity)
         .contentShape(Rectangle())

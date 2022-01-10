@@ -29,8 +29,8 @@ struct SNSTopicListView: View {
                 ScrollView {
                     VStack {
                         LazyVGrid(columns: [
-                            GridItem(.flexible(minimum: 150)),
-                            GridItem(.flexible(minimum: 100)),
+                            GridItem(.flexible(minimum: 150), spacing: 0),
+                            GridItem(.flexible(minimum: 100), spacing: 0),
                         ], spacing: 0) {
                             Text("Topic Name")
                                 .bold()
@@ -45,11 +45,13 @@ struct SNSTopicListView: View {
                                                      onTapGesture: { handleSelection(topic) },
                                                      onPublish: { onPublish(topic) },
                                                      onDelete: { onDelete(topic) })
+                                    .background(viewModel.selection == topic.topicARN ? Color.accentColor : nil)
                                 
                                 SNSTopicListCellView(text: textForType(topic.type),
                                                      onTapGesture: { handleSelection(topic) },
                                                      onPublish: { onPublish(topic) },
                                                      onDelete: { onDelete(topic) })
+                                    .background(viewModel.selection == topic.topicARN ? Color.accentColor : nil)
                             }
                         }
                     }
@@ -102,7 +104,7 @@ fileprivate struct SNSTopicListCellView: View {
     var body: some View {
         HStack {
             Text(text)
-                .padding([.trailing, .top, .bottom], 3)
+                .padding(4)
         }
         .frame(maxWidth: .infinity)
         .contentShape(Rectangle())
