@@ -27,11 +27,14 @@ struct S3Service {
         operation.whenFailure { completion(.failure($0)) }
     }
     
-    func listBuckets(completion: @escaping(_ result: Result<[S3.Bucket], Error>) -> Void) {
+    func listBuckets(completion: @escaping(_ result: Result<[S3Bucket], Error>) -> Void) {
         let operation = s3.listBuckets()
         
         operation.whenSuccess { response in
-            completion(.success(response.buckets ?? []))
+            let buckets = response.buckets ?? []
+            completion(.success(buckets.map {
+                S3Bucket(name: $0.name ?? "", created: $0.creationDate)
+            }))
         }
         
         operation.whenFailure { completion(.failure($0)) }

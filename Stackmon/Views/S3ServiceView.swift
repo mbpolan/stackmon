@@ -84,10 +84,8 @@ struct S3ServiceView: View {
         }
     }
     
-    private func handleDeleteBucket(_ bucket: S3.Bucket) {
-        guard let name = bucket.name else { return }
-        
-        service.deleteBucket(name) { result in
+    private func handleDeleteBucket(_ bucket: S3Bucket) {
+        service.deleteBucket(bucket.name) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(_):
@@ -113,7 +111,7 @@ struct S3ServiceView: View {
 
 class S3ServiceViewModel: ObservableObject {
     @Published var mode: ViewMode = .list
-    @Published var buckets: [S3.Bucket] = []
+    @Published var buckets: [S3Bucket] = []
     @Published var loading: Bool = true
     @Published var sheet: Sheet = .none {
         didSet {

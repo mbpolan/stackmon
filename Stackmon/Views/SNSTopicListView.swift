@@ -41,15 +41,12 @@ struct SNSTopicListView: View {
     private var configuration: TableListView<SNSTopic, Column, RowAction>.Configuration {
         TableListView.Configuration(
             noDataText: "There are no topics",
-            columns: [.topic, .type],
+            columns: Column.allCases,
             gridColumns: [
                 GridItem(.flexible(minimum: 150), spacing: 0),
                 GridItem(.flexible(minimum: 50), spacing: 0),
             ],
-            rowActions: [
-                .publish,
-                .delete
-            ])
+            rowActions: RowAction.allCases)
     }
     
     private func handleRowAction(_ action: RowAction, _ datum: SNSTopic) {
@@ -89,7 +86,7 @@ extension SNSTopic: TableCellData {
 }
 
 extension SNSTopicListView {
-    enum Column: TableColumn {
+    enum Column: TableColumn, CaseIterable {
         typealias ColumnType = Self
         
         case topic
@@ -107,7 +104,7 @@ extension SNSTopicListView {
         var id: Self { self }
     }
     
-    enum RowAction: TableRowAction {
+    enum RowAction: TableRowAction, CaseIterable {
         typealias T = Self
         
         case publish
