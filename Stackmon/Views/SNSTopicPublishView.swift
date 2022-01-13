@@ -21,6 +21,8 @@ struct SNSTopicPublishView: View {
         Form {
             Section(header: Text("Message")) {
                 TextEditor(text: $viewModel.message)
+                    .font(.system(size: 13, weight: .regular, design: .monospaced))
+                    .disableAutocorrection(true)
                     .padding()
             }
             .padding([.bottom], 5)

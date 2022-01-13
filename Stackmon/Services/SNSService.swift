@@ -23,7 +23,7 @@ struct SNSService {
         operation.whenFailure { completion(.failure($0)) }
     }
     
-    func deleteQueue(_ topicARN: String, completion: @escaping(_ result: Result<Bool, Error>) -> Void) {
+    func deleteTopic(_ topicARN: String, completion: @escaping(_ result: Result<Bool, Error>) -> Void) {
         let request = SNS.DeleteTopicInput(topicArn: topicARN)
         let operation = sns.deleteTopic(request)
         
@@ -35,6 +35,42 @@ struct SNSService {
         let operation = sns.publish(request)
         
         operation.whenSuccess { _ in completion(.success(true)) }
+        operation.whenFailure { completion(.failure($0)) }
+    }
+    
+    func listSubscriptions(completion: @escaping(_ result: Result<[SNSSubscription], Error>) -> Void) {
+        let request = SNS.ListSubscriptionsInput()
+        let operation = sns.listSubscriptions(request)
+        
+        operation.whenSuccess {
+            let subs = $0.subscriptions ?? []
+            
+            completion(.success(subs.filter { $0.subscriptionArn != nil }.map { sub in
+                SNSSubscription(arn: sub.subscriptionArn ?? "",
+                                topicARN: sub.topicArn,
+                                protocol: sub.protocol,
+                                endpoint: sub.endpoint)
+            }))
+        }
+        
+        operation.whenFailure { completion(.failure($0)) }
+    }
+    
+    func listSubscriptions(byTopic topicARN: String, completion: @escaping(_ result: Result<[SNSSubscription], Error>) -> Void) {
+        let request = SNS.ListSubscriptionsByTopicInput(topicArn: topicARN)
+        let operation = sns.listSubscriptionsByTopic(request)
+        
+        operation.whenSuccess {
+            let subs = $0.subscriptions ?? []
+            
+            completion(.success(subs.filter { $0.subscriptionArn != nil }.map { sub in
+                SNSSubscription(arn: sub.subscriptionArn ?? "",
+                                topicARN: sub.topicArn,
+                                protocol: sub.protocol,
+                                endpoint: sub.endpoint)
+            }))
+        }
+        
         operation.whenFailure { completion(.failure($0)) }
     }
     

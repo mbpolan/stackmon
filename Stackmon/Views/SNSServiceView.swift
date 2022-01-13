@@ -74,7 +74,7 @@ struct SNSServiceView: View {
     }
     
     private func handleDeleteTopic(_ topic: SNSTopic) {
-        service.deleteQueue(topic.topicARN, completion: afterOperation)
+        service.deleteTopic(topic.topicARN, completion: afterOperation)
     }
     
     private func handleShowPublish(_ topic: SNSTopic) {

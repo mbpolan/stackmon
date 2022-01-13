@@ -11,7 +11,6 @@ import SwiftUI
 // MARK: - View
 
 struct SQSQueueListView: View {
-    @StateObject private var viewModel: SQSQueueListViewModel = SQSQueueListViewModel()
     @Binding var queues: [SQSQueue]
     let hasNoData: Bool
     let onAdd: () -> Void
@@ -20,85 +19,10 @@ struct SQSQueueListView: View {
     let onPurge: (_ queue: SQSQueue) -> Void
     
     var body: some View {
-        VStack {
-            if hasNoData {
-                Text("There are no queues")
-                    .foregroundColor(Color.secondary)
-                    .padding()
-                    .centered(.all)
-            } else {
-                ScrollView {
-                    VStack {
-                        LazyVGrid(columns: [
-                            GridItem(.flexible(minimum: 150), spacing: 0),
-                            GridItem(.flexible(minimum: 100), spacing: 0),
-                            GridItem(.flexible(minimum: 50), spacing: 0),
-                            GridItem(.flexible(minimum: 50), spacing: 0),
-                            GridItem(.flexible(minimum: 150), spacing: 0),
-                        ], spacing: 0) {
-                            Text("Queue Name")
-                                .bold()
-                                .padding([.leading, .top, .bottom], 3)
-                            
-                            Text("Type")
-                                .bold()
-                                .padding([.leading, .top, .bottom], 3)
-                            
-                            Text("Visible Messages")
-                                .bold()
-                                .padding([.leading, .top, .bottom], 3)
-                            
-                            Text("In-Flight Messages")
-                                .bold()
-                                .padding([.leading, .top, .bottom], 3)
-                            
-                            Text("Created")
-                                .bold()
-                                .padding([.leading, .top, .bottom], 3)
-                            
-                            ForEach(queues) { queue in
-                                // this is so awful
-                                SQSQueueListCellView(text: queue.name,
-                                                     onTapGesture: { handleSelection(queue) },
-                                                     onSendMessage: { onSendMessage(queue) },
-                                                     onDelete: { onDelete(queue) },
-                                                     onPurge: { onPurge(queue) })
-                                    .background(viewModel.selection == queue.queueURL ? Color.accentColor : nil)
-                                
-                                SQSQueueListCellView(text: textForType(queue.type),
-                                                     onTapGesture: { handleSelection(queue) },
-                                                     onSendMessage: { onSendMessage(queue) },
-                                                     onDelete: { onDelete(queue) },
-                                                     onPurge: { onPurge(queue) })
-                                    .background(viewModel.selection == queue.queueURL ? Color.accentColor : nil)
-                                
-                                SQSQueueListCellView(text: textForNumber(queue.numVisibleMessages),
-                                                     onTapGesture: { handleSelection(queue) },
-                                                     onSendMessage: { onSendMessage(queue) },
-                                                     onDelete: { onDelete(queue) },
-                                                     onPurge: { onPurge(queue) })
-                                    .background(viewModel.selection == queue.queueURL ? Color.accentColor : nil)
-                                
-                                SQSQueueListCellView(text: textForNumber(queue.numVisibleMessages),
-                                                     onTapGesture: { handleSelection(queue) },
-                                                     onSendMessage: { onSendMessage(queue) },
-                                                     onDelete: { onDelete(queue) },
-                                                     onPurge: { onPurge(queue) })
-                                    .background(viewModel.selection == queue.queueURL ? Color.accentColor : nil)
-                                
-                                SQSQueueListCellView(text: DateFormatter.formatListView(queue.created),
-                                                     onTapGesture: { handleSelection(queue) },
-                                                     onSendMessage: { onSendMessage(queue) },
-                                                     onDelete: { onDelete(queue) },
-                                                     onPurge: { onPurge(queue) })
-                                    .background(viewModel.selection == queue.queueURL ? Color.accentColor : nil)
-                            }
-                        }
-                    }
-                    .padding(5)
-                }
-            }
-        }
+        TableListView(data: $queues,
+                      configuration: configuration,
+                      hasNoData: hasNoData,
+                      onRowAction: handleRowAction)
         .navigationSubtitle("Queues")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
@@ -115,15 +39,55 @@ struct SQSQueueListView: View {
         }
     }
     
-    private func handleSelection(_ queue: SQSQueue) {
-        viewModel.selection = queue.queueURL
+    var configuration: TableListView<SQSQueue, Column, RowAction>.Configuration {
+        TableListView.Configuration(
+            noDataText: "There are no queues",
+            columns: Column.allCases,
+            gridColumns: [
+                GridItem(.flexible(minimum: 150), spacing: 0),
+                GridItem(.flexible(minimum: 100), spacing: 0),
+                GridItem(.flexible(minimum: 50), spacing: 0),
+                GridItem(.flexible(minimum: 50), spacing: 0),
+                GridItem(.flexible(minimum: 150), spacing: 0),
+            ],
+            rowActions: RowAction.allCases)
+    }
+    
+    private func handleRowAction(_ action: RowAction, _ datum: SQSQueue) {
+        switch action {
+        case .sendMessage:
+            onSendMessage(datum)
+        case .purge:
+            onPurge(datum)
+        case .delete:
+            onDelete(datum)
+        }
     }
     
     private func handleRefresh() {
         RefreshViewNotification().notify()
     }
+}
+
+// MARK: - Extensions
+
+extension SQSQueue: TableCellData {
+    func getTextForColumn(_ column: SQSQueueListView.Column) -> String {
+        switch column {
+        case .queueName:
+            return self.name
+        case .numVisibleMessages:
+            return textForNumber(self.numVisibleMessages)
+        case .numInFlightMessages:
+            return textForNumber(self.numInFlightMessages)
+        case .type:
+            return textForType
+        case .created:
+            return DateFormatter.formatListView(self.created)
+        }
+    }
     
-    private func textForType(_ type: SQSQueue.QueueType) -> String {
+    private var textForType: String {
         switch type {
         case .standard:
             return "Standard"
@@ -138,36 +102,63 @@ struct SQSQueueListView: View {
     }
 }
 
-// MARK: - Cell View
-
-fileprivate struct SQSQueueListCellView: View {
-    let text: String
-    let onTapGesture: () -> Void
-    let onSendMessage: () -> Void
-    let onDelete: () -> Void
-    let onPurge: () -> Void
-    
-    var body: some View {
-        HStack {
-            Text(text)
-                .padding(4)
+extension SQSQueueListView {
+    enum Column: TableColumn, CaseIterable {
+        typealias ColumnType = Self
+        
+        case queueName
+        case numVisibleMessages
+        case numInFlightMessages
+        case type
+        case created
+        
+        var id: Self { self }
+        
+        var label: String {
+            switch self {
+            case .queueName:
+                return "Queue Name"
+            case .numVisibleMessages:
+                return "Visible Messages"
+            case .numInFlightMessages:
+                return "In-Flight Messages"
+            case .type:
+                return "Type"
+            case .created:
+                return "Created On"
+            }
         }
-        .frame(maxWidth: .infinity)
-        .contentShape(Rectangle())
-        .contextMenu {
-            Button("Send Message", action: onSendMessage)
-            Divider()
-            Button("Purge", action: onPurge)
-            Button("Delete", action: onDelete)
-        }
-        .onTapGesture(perform: onTapGesture)
     }
-}
-
-// MARK: - View Model
-
-class SQSQueueListViewModel: ObservableObject {
-    @Published var selection: String?
+    
+    enum RowAction: TableRowAction, CaseIterable {
+        typealias T = Self
+        
+        case sendMessage
+        case purge
+        case delete
+        
+        var id: Self { self }
+        
+        var label: String {
+            switch self {
+            case .sendMessage:
+                return "Send Message"
+            case .purge:
+                return "Purge"
+            case .delete:
+                return "Delete"
+            }
+        }
+        
+        var isDivider: Bool {
+            switch self {
+            case .purge:
+                return true
+            default:
+                return false
+            }
+        }
+    }
 }
 
 // MARK: - Preview

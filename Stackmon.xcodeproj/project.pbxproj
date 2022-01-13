@@ -41,6 +41,9 @@
 		27DC2B9D278BA8CB00944DC7 /* SNSTopicListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B9C278BA8CB00944DC7 /* SNSTopicListView.swift */; };
 		27DC2B9F278BAA2000944DC7 /* SNSTopic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B9E278BAA2000944DC7 /* SNSTopic.swift */; };
 		27DC2BA1278BADDB00944DC7 /* SNSTopicPublishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2BA0278BADDB00944DC7 /* SNSTopicPublishView.swift */; };
+		27DC2BA5278BC3F600944DC7 /* SNSSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2BA4278BC3F600944DC7 /* SNSSubscription.swift */; };
+		27DC2BA9278BC6B000944DC7 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 27DC2BA8278BC6B000944DC7 /* Credits.html */; };
+		27DC2BAB278FC94C00944DC7 /* TableListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2BAA278FC94C00944DC7 /* TableListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +76,9 @@
 		27DC2B9C278BA8CB00944DC7 /* SNSTopicListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSTopicListView.swift; sourceTree = "<group>"; };
 		27DC2B9E278BAA2000944DC7 /* SNSTopic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSTopic.swift; sourceTree = "<group>"; };
 		27DC2BA0278BADDB00944DC7 /* SNSTopicPublishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSTopicPublishView.swift; sourceTree = "<group>"; };
+		27DC2BA4278BC3F600944DC7 /* SNSSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSSubscription.swift; sourceTree = "<group>"; };
+		27DC2BA8278BC6B000944DC7 /* Credits.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
+		27DC2BAA278FC94C00944DC7 /* TableListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				27DC2B58278A331600944DC7 /* Stackmon.entitlements */,
+				27DC2BA8278BC6B000944DC7 /* Credits.html */,
 				27DC2B7B278A71D700944DC7 /* Info.plist */,
 				27DC2B53278A331600944DC7 /* Assets.xcassets */,
 				27DC2B89278B6C3500944DC7 /* Extensions */,
@@ -158,6 +165,7 @@
 				27DC2B92278B78FD00944DC7 /* SQSQueueListView.swift */,
 				27DC2B94278B942000944DC7 /* SQSSendMessageView.swift */,
 				27DC2B8C278B75B500944DC7 /* SQSServiceView.swift */,
+				27DC2BAA278FC94C00944DC7 /* TableListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -180,6 +188,7 @@
 				27DC2B85278A833D00944DC7 /* S3Bucket.swift */,
 				27DC2B90278B78B500944DC7 /* SQSQueue.swift */,
 				27DC2B9E278BAA2000944DC7 /* SNSTopic.swift */,
+				27DC2BA4278BC3F600944DC7 /* SNSSubscription.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -273,6 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27DC2B57278A331600944DC7 /* Preview Assets.xcassets in Resources */,
+				27DC2BA9278BC6B000944DC7 /* Credits.html in Resources */,
 				27DC2B54278A331600944DC7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,8 +312,10 @@
 				27DC2B86278A833D00944DC7 /* S3Bucket.swift in Sources */,
 				27DC2B9F278BAA2000944DC7 /* SNSTopic.swift in Sources */,
 				27DC2B50278A331400944DC7 /* StackmonApp.swift in Sources */,
+				27DC2BA5278BC3F600944DC7 /* SNSSubscription.swift in Sources */,
 				27DC2B99278BA6CB00944DC7 /* SNSServiceView.swift in Sources */,
 				27DC2B73278A4B5B00944DC7 /* S3Service.swift in Sources */,
+				27DC2BAB278FC94C00944DC7 /* TableListView.swift in Sources */,
 				27DC2B93278B78FD00944DC7 /* SQSQueueListView.swift in Sources */,
 				27DC2B76278A4D0E00944DC7 /* AppState.swift in Sources */,
 				27DC2B8F278B763200944DC7 /* SQSService.swift in Sources */,
@@ -447,7 +459,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbpolan.Stackmon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -474,7 +486,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbpolan.Stackmon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
