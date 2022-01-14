@@ -51,24 +51,40 @@ struct TableListView<DataType: TableCellData, ColumnType, RowActionType: TableRo
                 ScrollView {
                     VStack {
                         LazyVGrid(columns: configuration.gridColumns, spacing: 0) {
-                            // use indicies as id values for headers to avoid conflicts with data
-                            ForEach(configuration.columns.indices) { i in
-                                HStack {
-                                    Text(configuration.columns[i].label)
-                                        .bold()
-                                        .padding([.leading, .top, .bottom], 3)
+                            ForEach(configuration.columns) { column in
+                                VStack {
+                                    HStack {
+                                        Text(column.label)
+                                            .bold()
+                                            .padding([.leading, .top, .bottom], 3)
+                                        
+                                        Spacer()
+                                    }
                                     
-                                    Spacer()
+                                    Divider()
                                 }
+                                .id("header\(column.id)")
                             }
                             
-                            ForEach(data) { datum in
-                                ForEach(configuration.columns, id: \.self) { column in
-                                    TableListCellView(datum: datum,
-                                                      text: datum.getTextForColumn(column),
-                                                      rowActions: configuration.rowActions,
-                                                      onTapGesture: { handleSelection(datum) },
-                                                      onRowAction: onRowAction)
+                            ForEach(data.indices, id: \.self) { i in
+                                ForEach(configuration.columns) { column in
+                                    VStack(spacing: 0) {
+                                        TableListCellView(datum: data[i],
+                                                          text: data[i].getTextForColumn(column),
+                                                          rowActions: configuration.rowActions,
+                                                          onTapGesture: { handleSelection(data[i]) },
+                                                          onRowAction: onRowAction)
+                                            .padding([.top, .bottom], 3)
+                                        
+                                        Divider()
+                                            .padding(0)
+                                            .frame(height: 1)
+                                        
+                                    }
+                                    .id("cell\(i)\(column.id)")
+                                    .background(viewModel.selection == data[i].id
+                                                ? Color.accentColor
+                                                : nil)
                                 }
                             }
                         }
@@ -100,6 +116,7 @@ fileprivate struct TableListCellView<DataType: TableCellData, RowActionType: Tab
     var body: some View {
         HStack {
             Text(text)
+                .lineLimit(1)
                 .padding(4)
             
             Spacer()
@@ -127,16 +144,85 @@ class TableListViewModel<T: TableCellData>: ObservableObject {
 // MARK: - Preview
 
 struct TableListView_Preview: PreviewProvider {
-    @State private static var topics: [SNSTopic] = [
-        SNSTopic(topicARN: "arn:aws:sns::/test")
+    @State static var data: [CellData] = [
+        CellData(name: "Foo", description: "This is some foo", count: 5),
+        CellData(name: "Bar", description: "This is some bar", count: 15),
+        CellData(name: "Fizz Buzz", description: "Fizz buzz and some jazz", count: 255),
     ]
     
+    enum Column: TableColumn, CaseIterable {
+        typealias ColumnType = Self
+        
+        case name
+        case description
+        case count
+        
+        var id: Self { self }
+        
+        var label: String {
+            switch self {
+            case .name:
+                return "Name"
+            case .description:
+                return "Description"
+            case .count:
+                return "Created On"
+            }
+        }
+    }
+    
+    enum RowAction: TableRowAction, CaseIterable {
+        typealias T = Self
+        
+        case delete
+        
+        var id: Self { self }
+        
+        var label: String {
+            "Delete"
+        }
+        
+        var isDivider: Bool {
+            false
+        }
+    }
+    
+    struct CellData: TableCellData {
+        let name: String
+        let description: String
+        let count: Int
+        
+        var id: String { name }
+        
+        func getTextForColumn(_ column: TableListView_Preview.Column) -> String {
+            switch column {
+            case .name:
+                return name
+            case .description:
+                return description
+            case .count:
+                return String(count)
+            }
+        }
+    }
+    
+    static var configuration: TableListView<CellData, Column, RowAction>.Configuration {
+        TableListView.Configuration(
+            noDataText: "No data found",
+            columns: Column.allCases,
+            gridColumns: [
+                GridItem(.flexible(minimum: 100), spacing: 0),
+                GridItem(.flexible(minimum: 150), spacing: 0),
+                GridItem(.flexible(minimum: 50), spacing: 0),
+            ],
+            rowActions: RowAction.allCases)
+    }
+    
     static var previews: some View {
-        SNSTopicListView(topics: $topics,
-                         hasNoData: false,
-                         onAdd: { },
-                         onPublish: { _ in },
-                         onDelete: { _ in })
+        TableListView(data: $data,
+                      configuration: configuration,
+                      hasNoData: false,
+                      onRowAction: { _, _ in })
             .frame(width: 500)
     }
 }
