@@ -17,8 +17,11 @@ struct SQSServiceView: View {
     var body: some View {
         VStack {
             switch viewModel.mode {
+            case .noRegion:
+                NoRegionPlaceholderView()
             case .list:
-                SQSQueueListView(queues: $viewModel.queues,
+                SQSQueueListView(region: $appState.region,
+                                 queues: $viewModel.queues,
                                  hasNoData: hasNoData,
                                  onAdd: handleAddQueue,
                                  onSendMessage: handleShowSendMessage,
@@ -42,10 +45,12 @@ struct SQSServiceView: View {
         }
         .onAppear(perform: handleLoad)
         .onRefresh(perform: handleLoad)
+        .onChange(of: appState.region, perform: { _ in handleLoad() })
     }
     
-    private var service: SQSService {
-        SQSService(client: appState.client, profile: appState.profile)
+    private var service: SQSService? {
+        guard let region = appState.region else { return nil }
+        return SQSService(client: appState.client, region: region, profile: appState.profile)
     }
     
     private var hasNoData: Bool {
@@ -53,6 +58,11 @@ struct SQSServiceView: View {
     }
     
     private func handleLoad() {
+        guard let service = service else {
+            viewModel.mode = .noRegion
+            return
+        }
+
         viewModel.loading = true
         
         service.listQueues(completion: { result in
@@ -75,6 +85,7 @@ struct SQSServiceView: View {
     }
     
     private func handleDeleteQueue(_ queue: SQSQueue) {
+        guard let service = service else { return }
         service.deleteQueue(queue.queueURL, completion: afterOperation)
     }
     
@@ -83,10 +94,12 @@ struct SQSServiceView: View {
     }
     
     private func handleSendMessage(_ request: SQS.SendMessageRequest) {
+        guard let service = service else { return }
         service.sendMessage(request, completion: afterOperation)
     }
     
     private func handlePurgeQueue(_ queue: SQSQueue) {
+        guard let service = service else { return }
         service.purgeQueue(queue.queueURL, completion: afterOperation)
     }
     
@@ -130,6 +143,7 @@ class SQSServiceViewModel: ObservableObject {
     @Published var sheetShown: Bool = false
     
     enum ViewMode {
+        case noRegion
         case list
         case sendMessage(_ queue: SQSQueue)
     }

@@ -10,6 +10,7 @@ import SotoSQS
 
 struct SQSService {
     let client: AWSClient
+    let region: Region
     let profile: Profile
     
     func listQueues(completion: @escaping(_ result: Result<[SQSQueue], Error>) -> Void) {
@@ -47,7 +48,7 @@ struct SQSService {
     }
     
     private var sqs: SQS {
-        SQS(client: client, region: profile.region, endpoint: "http://localhost:4566")
+        SQS(client: client, region: region, endpoint: "http://localhost:4566")
     }
     
     private func getQueueSummaries(_ queueURLs: [String], completion: @escaping(_ result: Result<[SQSQueue], Error>) -> Void) {

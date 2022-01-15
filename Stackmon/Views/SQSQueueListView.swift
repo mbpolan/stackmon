@@ -11,6 +11,7 @@ import SwiftUI
 // MARK: - View
 
 struct SQSQueueListView: View {
+    @Binding var region: Region?
     @Binding var queues: [SQSQueue]
     let hasNoData: Bool
     let onAdd: () -> Void
@@ -27,6 +28,8 @@ struct SQSQueueListView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 HStack {
+                    AWSRegionPicker(region: $region)
+                    
                     Button(action: onAdd) {
                         Image(systemName: "plus")
                     }
@@ -164,12 +167,14 @@ extension SQSQueueListView {
 // MARK: - Preview
 
 struct SQSQueueListView_Preview: PreviewProvider {
+    @State private static var region: Region? = .useast1
     @State private static var queues: [SQSQueue] = [
         SQSQueue(queueURL: "http://localhost:4566/test-queue")
     ]
     
     static var previews: some View {
-        SQSQueueListView(queues: $queues,
+        SQSQueueListView(region: $region,
+                         queues: $queues,
                          hasNoData: false,
                          onAdd: { },
                          onSendMessage: { _ in },

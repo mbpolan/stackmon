@@ -9,7 +9,7 @@ import Combine
 import SotoCore
 
 class Profile: ObservableObject {
-    @Published var region: Region = .useast1
+    @Published var region: Region? = .useast1
     
     static var `default`: Profile = Profile()
 }

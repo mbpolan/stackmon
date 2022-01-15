@@ -10,6 +10,7 @@ import SotoSNS
 
 struct SNSService {
     let client: AWSClient
+    let region: Region
     let profile: Profile
     
     func listTopics(completion: @escaping(_ result: Result<[SNSTopic], Error>) -> Void) {
@@ -75,7 +76,7 @@ struct SNSService {
     }
     
     private var sns: SNS {
-        SNS(client: client, region: profile.region, endpoint: "http://localhost:4566")
+        SNS(client: client, region: region, endpoint: "http://localhost:4566")
     }
     
     private enum TopicAttributeName: String {

@@ -11,6 +11,7 @@ import SwiftUI
 // MARK: - View
 
 struct SNSTopicListView: View {
+    @Binding var region: Region?
     @Binding var topics: [SNSTopic]
     let hasNoData: Bool
     let onAdd: () -> Void
@@ -26,6 +27,8 @@ struct SNSTopicListView: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     HStack {
+                        AWSRegionPicker(region: $region)
+                        
                         Button(action: onAdd) {
                             Image(systemName: "plus")
                         }
@@ -135,12 +138,14 @@ extension SNSTopicListView {
 // MARK: - Preview
 
 struct SNSTopicListView_Preview: PreviewProvider {
+    @State private static var region: Region? = .useast1
     @State private static var topics: [SNSTopic] = [
         SNSTopic(topicARN: "arn:aws:sns::/test")
     ]
     
     static var previews: some View {
-        SNSTopicListView(topics: $topics,
+        SNSTopicListView(region: $region,
+                         topics: $topics,
                          hasNoData: false,
                          onAdd: { },
                          onPublish: { _ in },

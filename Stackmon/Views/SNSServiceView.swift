@@ -17,8 +17,11 @@ struct SNSServiceView: View {
     var body: some View {
         VStack {
             switch viewModel.mode {
+            case .noRegion:
+                NoRegionPlaceholderView()
             case .list:
-                SNSTopicListView(topics: $viewModel.topics,
+                SNSTopicListView(region: $appState.region,
+                                 topics: $viewModel.topics,
                                  hasNoData: hasNoData,
                                  onAdd: handleAddTopic,
                                  onPublish: handleShowPublish,
@@ -41,10 +44,12 @@ struct SNSServiceView: View {
         }
         .onAppear(perform: handleLoad)
         .onRefresh(perform: handleLoad)
+        .onChange(of: appState.region, perform: { _ in handleLoad() })
     }
     
-    private var service: SNSService {
-        SNSService(client: appState.client, profile: appState.profile)
+    private var service: SNSService? {
+        guard let region = appState.region else { return nil }
+        return SNSService(client: appState.client, region: region, profile: appState.profile)
     }
     
     private var hasNoData: Bool {
@@ -52,6 +57,11 @@ struct SNSServiceView: View {
     }
     
     private func handleLoad() {
+        guard let service = service else {
+            viewModel.mode = .noRegion
+            return
+        }
+
         viewModel.loading = true
         
         service.listTopics(completion: { result in
@@ -74,6 +84,7 @@ struct SNSServiceView: View {
     }
     
     private func handleDeleteTopic(_ topic: SNSTopic) {
+        guard let service = service else { return }
         service.deleteTopic(topic.topicARN, completion: afterOperation)
     }
     
@@ -82,6 +93,7 @@ struct SNSServiceView: View {
     }
     
     private func handlePublish(_ request: SNS.PublishInput) {
+        guard let service = service else { return }
         service.publish(request, completion: afterOperation)
     }
     
@@ -125,6 +137,7 @@ class SNSServiceViewModel: ObservableObject {
     @Published var sheetShown: Bool = false
     
     enum ViewMode {
+        case noRegion
         case list
         case publish(_ topic: SNSTopic)
     }

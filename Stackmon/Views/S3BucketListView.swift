@@ -11,6 +11,7 @@ import SwiftUI
 // MARK: - View
 
 struct S3BucketListView: View {
+    @StateObject private var viewModel: S3BucketListViewModel = S3BucketListViewModel()
     @Binding var buckets: [S3Bucket]
     let hasNoBuckets: Bool
     let onAdd: () -> Void
@@ -25,6 +26,9 @@ struct S3BucketListView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 HStack {
+                    // buckets are considered global resources
+                    AWSRegionPicker(region: $viewModel.region, allowedRegions: [])
+                    
                     Button(action: onAdd) {
                         Image(systemName: "plus")
                     }
@@ -58,6 +62,12 @@ struct S3BucketListView: View {
     private func handleRefresh() {
         RefreshViewNotification().notify()
     }
+}
+
+// MARK: - View Model
+
+class S3BucketListViewModel: ObservableObject {
+    @Published var region: Region?
 }
 
 // MARK: - Extensions
