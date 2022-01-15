@@ -47,6 +47,8 @@
 		27DC2BAD27924D1300944DC7 /* AWSRegionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2BAC27924D1300944DC7 /* AWSRegionPicker.swift */; };
 		27DC2BB127924EE000944DC7 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2BB027924EE000944DC7 /* Region.swift */; };
 		27DC2BB327925B6300944DC7 /* NoRegionMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2BB227925B6300944DC7 /* NoRegionMessageView.swift */; };
+		27DC2BB52792600500944DC7 /* NSBezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2BB42792600500944DC7 /* NSBezierPath.swift */; };
+		27DC2BB72792663B00944DC7 /* RoundedSpan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2BB62792663B00944DC7 /* RoundedSpan.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +87,8 @@
 		27DC2BAC27924D1300944DC7 /* AWSRegionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSRegionPicker.swift; sourceTree = "<group>"; };
 		27DC2BB027924EE000944DC7 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
 		27DC2BB227925B6300944DC7 /* NoRegionMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoRegionMessageView.swift; sourceTree = "<group>"; };
+		27DC2BB42792600500944DC7 /* NSBezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSBezierPath.swift; sourceTree = "<group>"; };
+		27DC2BB62792663B00944DC7 /* RoundedSpan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedSpan.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				27DC2B81278A7C4900944DC7 /* CenteredViewModifier.swift */,
+				27DC2BB62792663B00944DC7 /* RoundedSpan.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -215,6 +220,7 @@
 				27DC2B8A278B6C4700944DC7 /* DateFormatter.swift */,
 				27DC2BB027924EE000944DC7 /* Region.swift */,
 				27DC2B96278B9B7D00944DC7 /* String.swift */,
+				27DC2BB42792600500944DC7 /* NSBezierPath.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -311,6 +317,7 @@
 				27DC2B52278A331400944DC7 /* ContentView.swift in Sources */,
 				27DC2B9D278BA8CB00944DC7 /* SNSTopicListView.swift in Sources */,
 				27DC2B84278A82A400944DC7 /* S3BucketDetailEditorView.swift in Sources */,
+				27DC2BB72792663B00944DC7 /* RoundedSpan.swift in Sources */,
 				27DC2B8B278B6C4700944DC7 /* DateFormatter.swift in Sources */,
 				27DC2B91278B78B500944DC7 /* SQSQueue.swift in Sources */,
 				27DC2BA1278BADDB00944DC7 /* SNSTopicPublishView.swift in Sources */,
@@ -325,6 +332,7 @@
 				27DC2B50278A331400944DC7 /* StackmonApp.swift in Sources */,
 				27DC2BA5278BC3F600944DC7 /* SNSSubscription.swift in Sources */,
 				27DC2B99278BA6CB00944DC7 /* SNSServiceView.swift in Sources */,
+				27DC2BB52792600500944DC7 /* NSBezierPath.swift in Sources */,
 				27DC2BAD27924D1300944DC7 /* AWSRegionPicker.swift in Sources */,
 				27DC2B73278A4B5B00944DC7 /* S3Service.swift in Sources */,
 				27DC2BAB278FC94C00944DC7 /* TableListView.swift in Sources */,

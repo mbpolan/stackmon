@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// MARK: - View
+// MARK: - Protocols
 
 protocol TableListViewAction { }
 
@@ -25,6 +25,8 @@ protocol TableCellData: Identifiable {
     associatedtype ColumnType: TableColumn
     func getTextForColumn(_ column: ColumnType) -> String
 }
+
+// MARK: - View
 
 struct TableListView<DataType: TableCellData, ColumnType, RowActionType: TableRowAction>: View where DataType.ColumnType == ColumnType {
     @StateObject private var viewModel: TableListViewModel<DataType> = TableListViewModel<DataType>()
@@ -66,13 +68,13 @@ struct TableListView<DataType: TableCellData, ColumnType, RowActionType: TableRo
                                 .id("header\(column.id)")
                             }
                             
-                            ForEach(data.indices, id: \.self) { i in
-                                ForEach(configuration.columns) { column in
+                            ForEach(data.indices, id: \.self) { rowIndex in
+                                ForEach(configuration.columns.indices, id: \.self) { columnIndex in
                                     VStack(spacing: 0) {
-                                        TableListCellView(datum: data[i],
-                                                          text: data[i].getTextForColumn(column),
+                                        TableListCellView(datum: data[rowIndex],
+                                                          text: data[rowIndex].getTextForColumn(configuration.columns[columnIndex]),
                                                           rowActions: configuration.rowActions,
-                                                          onTapGesture: { handleSelection(data[i]) },
+                                                          onTapGesture: { handleSelection(data[rowIndex]) },
                                                           onRowAction: onRowAction)
                                             .padding([.top, .bottom], 3)
                                         
@@ -81,9 +83,11 @@ struct TableListView<DataType: TableCellData, ColumnType, RowActionType: TableRo
                                             .frame(height: 1)
                                         
                                     }
-                                    .id("cell\(i)\(column.id)")
-                                    .background(viewModel.selection == data[i].id
-                                                ? Color.accentColor
+                                    .id("cell\(rowIndex)\(columnIndex)")
+                                    .background(viewModel.selection == data[rowIndex].id
+                                                ? Color.accentColor.roundedSpan(3,
+                                                                                first: columnIndex == 0,
+                                                                                last: columnIndex == configuration.columns.count - 1)
                                                 : nil)
                                 }
                             }
