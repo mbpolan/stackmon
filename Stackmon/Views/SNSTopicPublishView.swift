@@ -84,7 +84,7 @@ struct SNSTopicPublishView: View {
 
 // MARK: - View Model
 
-class SNSTopicPublishViewModel: ObservableObject {
+fileprivate class SNSTopicPublishViewModel: ObservableObject {
     @Published var dedupeID: String = ""
     @Published var groupID: String = ""
     @Published var message: String = ""

@@ -13,6 +13,7 @@ import SwiftUI
 struct S3ServiceView: View {
     @EnvironmentObject private var appState: AppState
     @StateObject private var viewModel: S3ServiceViewModel = S3ServiceViewModel()
+    let view: AWSService
     
     var body: some View {
         VStack {

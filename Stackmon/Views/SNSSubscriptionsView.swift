@@ -1,19 +1,18 @@
 //
-//  SQSServiceView.swift
+//  SNSSubscriptionsView.swift
 //  Stackmon
 //
 //  Created by Mike Polan on 1/9/22.
 //
 
-import SotoSQS
+import SotoSNS
 import SwiftUI
 
 // MARK: - View
 
-struct SQSServiceView: View {
+struct SNSSubscriptionsView: View {
     @EnvironmentObject private var appState: AppState
-    @StateObject private var viewModel: SQSServiceViewModel = SQSServiceViewModel()
-    let view: AWSService
+    @StateObject private var viewModel: SNSSubscriptionsViewModel = SNSSubscriptionsViewModel()
     
     var body: some View {
         VStack {
@@ -21,21 +20,14 @@ struct SQSServiceView: View {
             case .noRegion:
                 NoRegionPlaceholderView()
             case .list:
-                SQSQueueListView(region: $appState.region,
-                                 queues: $viewModel.queues,
+                SNSSubscriptionListView(region: $appState.region,
+                                 subscriptions: $viewModel.subscriptions,
                                  hasNoData: hasNoData,
-                                 onAdd: handleAddQueue,
-                                 onSendMessage: handleShowSendMessage,
-                                 onDelete: handleDeleteQueue,
-                                 onPurge: handlePurgeQueue)
-                
-            case .sendMessage(let queue):
-                SQSSendMessageView(queue: queue,
-                                   onCommit: handleSendMessage,
-                                   onCancel: handleCloseSubView)
+                                 onAdd: handleAddSubscription,
+                                 onDelete: handleDeleteSubscription)
             }
         }
-        .navigationTitle("Simple Queue Service (SQS)")
+        .navigationSubtitle("Subscriptions")
         .sheet(isPresented: $viewModel.sheetShown, onDismiss: handleCloseSheet) {
             switch viewModel.sheet {
             case .error(let error):
@@ -49,13 +41,13 @@ struct SQSServiceView: View {
         .onChange(of: appState.region, perform: { _ in handleLoad() })
     }
     
-    private var service: SQSService? {
+    private var service: SNSService? {
         guard let region = appState.region else { return nil }
-        return SQSService(client: appState.client, region: region, profile: appState.profile)
+        return SNSService(client: appState.client, region: region, profile: appState.profile)
     }
     
     private var hasNoData: Bool {
-        !viewModel.loading && viewModel.queues.isEmpty
+        !viewModel.loading && viewModel.subscriptions.isEmpty
     }
     
     private func handleLoad() {
@@ -66,11 +58,11 @@ struct SQSServiceView: View {
 
         viewModel.loading = true
         
-        service.listQueues(completion: { result in
+        service.listSubscriptions(completion: { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let queues):
-                    viewModel.queues = queues
+                case .success(let subscriptions):
+                    viewModel.subscriptions = subscriptions
                 case .failure(let error):
                     print(error)
                     viewModel.sheet = .error(error)
@@ -81,27 +73,12 @@ struct SQSServiceView: View {
         })
     }
     
-    private func handleAddQueue() {
+    private func handleAddSubscription() {
         // TODO
     }
     
-    private func handleDeleteQueue(_ queue: SQSQueue) {
-        guard let service = service else { return }
-        service.deleteQueue(queue.queueURL, completion: afterOperation)
-    }
-    
-    private func handleShowSendMessage(_ queue: SQSQueue) {
-        viewModel.mode = .sendMessage(queue)
-    }
-    
-    private func handleSendMessage(_ request: SQS.SendMessageRequest) {
-        guard let service = service else { return }
-        service.sendMessage(request, completion: afterOperation)
-    }
-    
-    private func handlePurgeQueue(_ queue: SQSQueue) {
-        guard let service = service else { return }
-        service.purgeQueue(queue.queueURL, completion: afterOperation)
+    private func handleDeleteSubscription(_ subscription: SNSSubscription) {
+        // TODO
     }
     
     private func handleCloseSubView() {
@@ -127,9 +104,9 @@ struct SQSServiceView: View {
 
 // MARK: - View Model
 
-class SQSServiceViewModel: ObservableObject {
+fileprivate class SNSSubscriptionsViewModel: ObservableObject {
     @Published var mode: ViewMode = .list
-    @Published var queues: [SQSQueue] = []
+    @Published var subscriptions: [SNSSubscription] = []
     @Published var loading: Bool = true
     @Published var sheet: Sheet = .none {
         didSet {
@@ -146,11 +123,18 @@ class SQSServiceViewModel: ObservableObject {
     enum ViewMode {
         case noRegion
         case list
-        case sendMessage(_ queue: SQSQueue)
     }
     
     enum Sheet {
         case none
         case error(_ error: Error)
+    }
+}
+
+// MARK: - Preview
+
+struct SNSSubscriptionsView_Preview: PreviewProvider {
+    static var previews: some View {
+        SNSSubscriptionsView()
     }
 }

@@ -13,13 +13,5 @@ class AppState: ObservableObject {
     @Published var client: AWSClient = AWSClient(credentialProvider: .static(accessKeyId: "test", secretAccessKey: "test"),
                                                  httpClientProvider: .createNew)
     @Published var profile: Profile = .default
-    @Published var serviceView: StackService?
-}
-
-enum StackService: Identifiable, CaseIterable {
-    case s3
-    case sns
-    case sqs
-    
-    var id: Self { self }
+    @Published var currentView: AWSService?
 }

@@ -12,25 +12,25 @@ import SwiftUI
 
 struct SNSServiceView: View {
     @EnvironmentObject private var appState: AppState
-    @StateObject private var viewModel: SNSServiceViewModel = SNSServiceViewModel()
+    @ObservedObject private var viewModel: SNSServiceViewModel = SNSServiceViewModel()
+    let view: AWSService
     
     var body: some View {
-        VStack {
-            switch viewModel.mode {
-            case .noRegion:
-                NoRegionPlaceholderView()
-            case .list:
-                SNSTopicListView(region: $appState.region,
-                                 topics: $viewModel.topics,
-                                 hasNoData: hasNoData,
-                                 onAdd: handleAddTopic,
-                                 onPublish: handleShowPublish,
-                                 onDelete: handleDeleteTopic)
-            
-            case .publish(let topic):
-                SNSTopicPublishView(topic: topic,
-                                    onCommit: handlePublish,
-                                    onCancel: handleCloseSubView)
+        Group {
+            switch view {
+            case .sns(let component):
+                switch component {
+                case .topics:
+                    SNSTopicsView()
+                case .subscriptions:
+                    SNSSubscriptionsView()
+                default:
+                    Text("Select a component to view")
+                        .foregroundColor(Color.secondary)
+                        .centered(.all)
+                }
+            default:
+                EmptyView()
             }
         }
         .navigationTitle("Simple Notification Service (SNS)")
@@ -42,88 +42,16 @@ struct SNSServiceView: View {
                 Text("An unknown error has occured")
             }
         }
-        .onAppear(perform: handleLoad)
-        .onRefresh(perform: handleLoad)
-        .onChange(of: appState.region, perform: { _ in handleLoad() })
-    }
-    
-    private var service: SNSService? {
-        guard let region = appState.region else { return nil }
-        return SNSService(client: appState.client, region: region, profile: appState.profile)
-    }
-    
-    private var hasNoData: Bool {
-        !viewModel.loading && viewModel.topics.isEmpty
-    }
-    
-    private func handleLoad() {
-        guard let service = service else {
-            viewModel.mode = .noRegion
-            return
-        }
-
-        viewModel.loading = true
-        
-        service.listTopics(completion: { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let topics):
-                    viewModel.topics = topics
-                case .failure(let error):
-                    print(error)
-                    viewModel.sheet = .error(error)
-                }
-                
-                viewModel.loading = false
-            }
-        })
-    }
-    
-    private func handleAddTopic() {
-        // TODO
-    }
-    
-    private func handleDeleteTopic(_ topic: SNSTopic) {
-        guard let service = service else { return }
-        service.deleteTopic(topic.topicARN, completion: afterOperation)
-    }
-    
-    private func handleShowPublish(_ topic: SNSTopic) {
-        viewModel.mode = .publish(topic)
-    }
-    
-    private func handlePublish(_ request: SNS.PublishInput) {
-        guard let service = service else { return }
-        service.publish(request, completion: afterOperation)
-    }
-    
-    private func handleCloseSubView() {
-        viewModel.mode = .list
     }
     
     private func handleCloseSheet() {
         viewModel.sheet = .none
-    }
-    
-    private func afterOperation<T>(_ result: Result<T, Error>) {
-        DispatchQueue.main.async {
-            switch result {
-            case .success(_):
-                viewModel.mode = .list
-                handleLoad()
-            case .failure(let error):
-                viewModel.sheet = .error(error)
-            }
-        }
     }
 }
 
 // MARK: - View Model
 
 class SNSServiceViewModel: ObservableObject {
-    @Published var mode: ViewMode = .list
-    @Published var topics: [SNSTopic] = []
-    @Published var loading: Bool = true
     @Published var sheet: Sheet = .none {
         didSet {
             switch sheet {
@@ -135,12 +63,6 @@ class SNSServiceViewModel: ObservableObject {
         }
     }
     @Published var sheetShown: Bool = false
-    
-    enum ViewMode {
-        case noRegion
-        case list
-        case publish(_ topic: SNSTopic)
-    }
     
     enum Sheet {
         case none

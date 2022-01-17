@@ -1,19 +1,18 @@
 //
-//  SQSServiceView.swift
+//  SNSTopicsView.swift
 //  Stackmon
 //
 //  Created by Mike Polan on 1/9/22.
 //
 
-import SotoSQS
+import SotoSNS
 import SwiftUI
 
 // MARK: - View
 
-struct SQSServiceView: View {
+struct SNSTopicsView: View {
     @EnvironmentObject private var appState: AppState
-    @StateObject private var viewModel: SQSServiceViewModel = SQSServiceViewModel()
-    let view: AWSService
+    @StateObject private var viewModel: SNSTopicsViewModel = SNSTopicsViewModel()
     
     var body: some View {
         VStack {
@@ -21,21 +20,20 @@ struct SQSServiceView: View {
             case .noRegion:
                 NoRegionPlaceholderView()
             case .list:
-                SQSQueueListView(region: $appState.region,
-                                 queues: $viewModel.queues,
+                SNSTopicListView(region: $appState.region,
+                                 topics: $viewModel.topics,
                                  hasNoData: hasNoData,
-                                 onAdd: handleAddQueue,
-                                 onSendMessage: handleShowSendMessage,
-                                 onDelete: handleDeleteQueue,
-                                 onPurge: handlePurgeQueue)
-                
-            case .sendMessage(let queue):
-                SQSSendMessageView(queue: queue,
-                                   onCommit: handleSendMessage,
-                                   onCancel: handleCloseSubView)
+                                 onAdd: handleAddTopic,
+                                 onPublish: handleShowPublish,
+                                 onDelete: handleDeleteTopic)
+            
+            case .publish(let topic):
+                SNSTopicPublishView(topic: topic,
+                                    onCommit: handlePublish,
+                                    onCancel: handleCloseSubView)
             }
         }
-        .navigationTitle("Simple Queue Service (SQS)")
+        .navigationTitle("Simple Notification Service (SNS)")
         .sheet(isPresented: $viewModel.sheetShown, onDismiss: handleCloseSheet) {
             switch viewModel.sheet {
             case .error(let error):
@@ -49,13 +47,13 @@ struct SQSServiceView: View {
         .onChange(of: appState.region, perform: { _ in handleLoad() })
     }
     
-    private var service: SQSService? {
+    private var service: SNSService? {
         guard let region = appState.region else { return nil }
-        return SQSService(client: appState.client, region: region, profile: appState.profile)
+        return SNSService(client: appState.client, region: region, profile: appState.profile)
     }
     
     private var hasNoData: Bool {
-        !viewModel.loading && viewModel.queues.isEmpty
+        !viewModel.loading && viewModel.topics.isEmpty
     }
     
     private func handleLoad() {
@@ -66,11 +64,11 @@ struct SQSServiceView: View {
 
         viewModel.loading = true
         
-        service.listQueues(completion: { result in
+        service.listTopics(completion: { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let queues):
-                    viewModel.queues = queues
+                case .success(let topics):
+                    viewModel.topics = topics
                 case .failure(let error):
                     print(error)
                     viewModel.sheet = .error(error)
@@ -81,27 +79,22 @@ struct SQSServiceView: View {
         })
     }
     
-    private func handleAddQueue() {
+    private func handleAddTopic() {
         // TODO
     }
     
-    private func handleDeleteQueue(_ queue: SQSQueue) {
+    private func handleDeleteTopic(_ topic: SNSTopic) {
         guard let service = service else { return }
-        service.deleteQueue(queue.queueURL, completion: afterOperation)
+        service.deleteTopic(topic.topicARN, completion: afterOperation)
     }
     
-    private func handleShowSendMessage(_ queue: SQSQueue) {
-        viewModel.mode = .sendMessage(queue)
+    private func handleShowPublish(_ topic: SNSTopic) {
+        viewModel.mode = .publish(topic)
     }
     
-    private func handleSendMessage(_ request: SQS.SendMessageRequest) {
+    private func handlePublish(_ request: SNS.PublishInput) {
         guard let service = service else { return }
-        service.sendMessage(request, completion: afterOperation)
-    }
-    
-    private func handlePurgeQueue(_ queue: SQSQueue) {
-        guard let service = service else { return }
-        service.purgeQueue(queue.queueURL, completion: afterOperation)
+        service.publish(request, completion: afterOperation)
     }
     
     private func handleCloseSubView() {
@@ -127,9 +120,9 @@ struct SQSServiceView: View {
 
 // MARK: - View Model
 
-class SQSServiceViewModel: ObservableObject {
+fileprivate class SNSTopicsViewModel: ObservableObject {
     @Published var mode: ViewMode = .list
-    @Published var queues: [SQSQueue] = []
+    @Published var topics: [SNSTopic] = []
     @Published var loading: Bool = true
     @Published var sheet: Sheet = .none {
         didSet {
@@ -146,11 +139,19 @@ class SQSServiceViewModel: ObservableObject {
     enum ViewMode {
         case noRegion
         case list
-        case sendMessage(_ queue: SQSQueue)
+        case publish(_ topic: SNSTopic)
     }
     
     enum Sheet {
         case none
         case error(_ error: Error)
+    }
+}
+
+// MARK: - Preview
+
+struct SNSTopicsView_Preview: PreviewProvider {
+    static var previews: some View {
+        SNSTopicsView()
     }
 }

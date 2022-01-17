@@ -11,31 +11,46 @@ import SwiftUI
 
 struct SidebarView: View {
     @EnvironmentObject private var appState: AppState
+    @StateObject private var viewModel: SidebarViewModel = SidebarViewModel()
     
     var body: some View {
-        List(StackService.allCases, selection: $appState.serviceView) { service in
+        List(viewModel.items, id: \.self, children: \.children, selection: $viewModel.currentItem) { item in
             HStack {
-                Text(textForService(service))
+                Text(item.label)
+                    .padding(.leading, 3)
                 Spacer()
             }
-            .onTapGesture {
-                handleSelectService(service)
-            }
         }
+        .onChange(of: viewModel.currentItem, perform: handleUpdateSelection)
     }
     
-    private func handleSelectService(_ service: StackService) {
-        appState.serviceView = service
+    private func handleUpdateSelection(_ item: SidebarViewModel.ListItem?) {
+        appState.currentView = item?.service
     }
+}
+
+// MARK: - View Model
+
+class SidebarViewModel: ObservableObject {
+    @Published var currentItem: ListItem?
+    @Published var items: [ListItem] = [
+        ListItem("S3", service: .s3),
+        ListItem("SNS", service: .sns(component: nil), children: [
+            ListItem("Subscriptions", service: .sns(component: .subscriptions)),
+            ListItem("Topics", service: .sns(component: .topics))
+        ]),
+        ListItem("SQS", service: .sqs)
+    ]
     
-    private func textForService(_ service: StackService) -> String {
-        switch service {
-        case .s3:
-            return "S3"
-        case .sns:
-            return "SNS"
-        case .sqs:
-            return "SQS"
+    struct ListItem: Hashable {
+        let label: String
+        let service: AWSService
+        let children: [ListItem]?
+        
+        init(_ label: String, service: AWSService, children: [ListItem]? = nil) {
+            self.label = label
+            self.service = service
+            self.children = children
         }
     }
 }

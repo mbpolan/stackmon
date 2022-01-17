@@ -18,13 +18,17 @@ struct ContentView: View {
             SidebarView()
             
             Group {
-                if appState.serviceView == .s3 {
-                    S3ServiceView()
-                } else if appState.serviceView == .sns {
-                    SNSServiceView()
-                } else if appState.serviceView == .sqs {
-                    SQSServiceView()
-                } else {
+                switch appState.currentView {
+                case .some(let view):
+                    switch view {
+                    case .s3:
+                        S3ServiceView(view: view)
+                    case .sns(_):
+                        SNSServiceView(view: view)
+                    case .sqs:
+                        SQSServiceView(view: view)
+                    }
+                default:
                     Text("Select a service to view")
                         .foregroundColor(Color.secondary)
                 }
