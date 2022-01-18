@@ -21,5 +21,6 @@ struct StackmonApp: App {
                 .frame(minWidth: 640, minHeight: 480)
                 .environmentObject(appState)
         }
+        .windowToolbarStyle(.unifiedCompact)
     }
 }

@@ -13,14 +13,14 @@ import SwiftUI
 struct S3BucketListView: View {
     @StateObject private var viewModel: S3BucketListViewModel = S3BucketListViewModel()
     @Binding var buckets: [S3Bucket]
-    let hasNoBuckets: Bool
+    let state: TableState
     let onAdd: () -> Void
     let onDelete: (_ bucket: S3Bucket) -> Void
     
     var body: some View {
         TableListView(data: $buckets,
                       configuration: configuration,
-                      hasNoData: hasNoBuckets,
+                      state: state,
                       onRowAction: handleRowAction)
         .navigationSubtitle("Buckets")
         .toolbar {
@@ -66,7 +66,7 @@ struct S3BucketListView: View {
 
 // MARK: - View Model
 
-class S3BucketListViewModel: ObservableObject {
+fileprivate class S3BucketListViewModel: ObservableObject {
     @Published var region: Region?
 }
 
@@ -131,7 +131,7 @@ struct S3BucketListView_Preview: PreviewProvider {
     
     static var previews: some View {
         S3BucketListView(buckets: $buckets,
-                         hasNoBuckets: false,
+                         state: .ready,
                          onAdd: { },
                          onDelete: { _ in })
     }

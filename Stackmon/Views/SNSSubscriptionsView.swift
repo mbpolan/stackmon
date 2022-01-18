@@ -21,10 +21,10 @@ struct SNSSubscriptionsView: View {
                 NoRegionPlaceholderView()
             case .list:
                 SNSSubscriptionListView(region: $appState.region,
-                                 subscriptions: $viewModel.subscriptions,
-                                 hasNoData: hasNoData,
-                                 onAdd: handleAddSubscription,
-                                 onDelete: handleDeleteSubscription)
+                                        subscriptions: $viewModel.subscriptions,
+                                        state: tableState,
+                                        onAdd: handleAddSubscription,
+                                        onDelete: handleDeleteSubscription)
             }
         }
         .navigationSubtitle("Subscriptions")
@@ -46,8 +46,14 @@ struct SNSSubscriptionsView: View {
         return SNSService(client: appState.client, region: region, profile: appState.profile)
     }
     
-    private var hasNoData: Bool {
-        !viewModel.loading && viewModel.subscriptions.isEmpty
+    private var tableState: TableState {
+        if viewModel.loading {
+            return .loading
+        } else if viewModel.subscriptions.isEmpty {
+            return .noData
+        } else {
+            return .ready
+        }
     }
     
     private func handleLoad() {
@@ -55,7 +61,7 @@ struct SNSSubscriptionsView: View {
             viewModel.mode = .noRegion
             return
         }
-
+        
         viewModel.loading = true
         
         service.listSubscriptions(completion: { result in

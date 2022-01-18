@@ -31,7 +31,7 @@ struct SidebarView: View {
 
 // MARK: - View Model
 
-class SidebarViewModel: ObservableObject {
+fileprivate class SidebarViewModel: ObservableObject {
     @Published var currentItem: ListItem?
     @Published var items: [ListItem] = [
         ListItem("S3", service: .s3),

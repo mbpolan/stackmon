@@ -13,14 +13,14 @@ import SwiftUI
 struct SNSSubscriptionListView: View {
     @Binding var region: Region?
     @Binding var subscriptions: [SNSSubscription]
-    let hasNoData: Bool
+    let state: TableState
     let onAdd: () -> Void
     let onDelete: (_ topic: SNSSubscription) -> Void
     
     var body: some View {
         TableListView(data: $subscriptions,
                       configuration: configuration,
-                      hasNoData: hasNoData,
+                      state: state,
                       onRowAction: handleRowAction)
             .navigationSubtitle("Subscriptions")
             .toolbar {
@@ -144,7 +144,7 @@ struct SNSSubscriptionListView_Preview: PreviewProvider {
     static var previews: some View {
         SNSSubscriptionListView(region: $region,
                                 subscriptions: $subscriptions,
-                                hasNoData: false,
+                                state: .ready,
                                 onAdd: { },
                                 onDelete: { _ in })
             .frame(width: 500)

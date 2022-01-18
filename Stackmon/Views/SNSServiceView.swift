@@ -51,7 +51,7 @@ struct SNSServiceView: View {
 
 // MARK: - View Model
 
-class SNSServiceViewModel: ObservableObject {
+fileprivate class SNSServiceViewModel: ObservableObject {
     @Published var sheet: Sheet = .none {
         didSet {
             switch sheet {
@@ -67,5 +67,13 @@ class SNSServiceViewModel: ObservableObject {
     enum Sheet {
         case none
         case error(_ error: Error)
+    }
+}
+
+// MARK: - Preview
+
+struct SNSServiceView_Preview: PreviewProvider {
+    static var previews: some View {
+        SNSServiceView(view: .sns(component: .subscriptions))
     }
 }

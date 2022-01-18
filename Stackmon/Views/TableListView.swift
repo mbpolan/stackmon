@@ -26,13 +26,19 @@ protocol TableCellData: Identifiable {
     func getTextForColumn(_ column: ColumnType) -> String
 }
 
+enum TableState {
+    case loading
+    case noData
+    case ready
+}
+
 // MARK: - View
 
 struct TableListView<DataType: TableCellData, ColumnType, RowActionType: TableRowAction>: View where DataType.ColumnType == ColumnType {
     @StateObject private var viewModel: TableListViewModel<DataType> = TableListViewModel<DataType>()
     @Binding var data: [DataType]
     let configuration: Configuration
-    let hasNoData: Bool
+    let state: TableState
     let onRowAction: (_ action: RowActionType, _ datum: DataType) -> Void
     
     struct Configuration {
@@ -44,7 +50,11 @@ struct TableListView<DataType: TableCellData, ColumnType, RowActionType: TableRo
     
     var body: some View {
         VStack {
-            if hasNoData {
+            if state == .loading {
+              ProgressView()
+                    .padding()
+                    .centered(.all)
+            } else if state == .noData {
                 Text(configuration.noDataText)
                     .foregroundColor(Color.secondary)
                     .padding()
@@ -225,8 +235,9 @@ struct TableListView_Preview: PreviewProvider {
     static var previews: some View {
         TableListView(data: $data,
                       configuration: configuration,
-                      hasNoData: false,
+                      state: .loading,
                       onRowAction: { _, _ in })
+            .previewDisplayName("Loading")
             .frame(width: 500)
     }
 }

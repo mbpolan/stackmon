@@ -86,7 +86,7 @@ struct SQSSendMessageView: View {
 
 // MARK: - View Model
 
-class SQSSendMessageViewModel: ObservableObject {
+fileprivate class SQSSendMessageViewModel: ObservableObject {
     @Published var delaySeconds: String = "0" // beacuse swiftui >:(
     @Published var dedupeID: String = ""
     @Published var groupID: String = ""

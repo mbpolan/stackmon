@@ -13,7 +13,7 @@ import SwiftUI
 struct SNSTopicListView: View {
     @Binding var region: Region?
     @Binding var topics: [SNSTopic]
-    let hasNoData: Bool
+    let state: TableState
     let onAdd: () -> Void
     let onPublish: (_ topic: SNSTopic) -> Void
     let onDelete: (_ topic: SNSTopic) -> Void
@@ -21,7 +21,7 @@ struct SNSTopicListView: View {
     var body: some View {
         TableListView(data: $topics,
                       configuration: configuration,
-                      hasNoData: hasNoData,
+                      state: state,
                       onRowAction: handleRowAction)
             .navigationSubtitle("Topics")
             .toolbar {
@@ -146,7 +146,7 @@ struct SNSTopicListView_Preview: PreviewProvider {
     static var previews: some View {
         SNSTopicListView(region: $region,
                          topics: $topics,
-                         hasNoData: false,
+                         state: .ready,
                          onAdd: { },
                          onPublish: { _ in },
                          onDelete: { _ in })

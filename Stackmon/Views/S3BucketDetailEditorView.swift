@@ -66,7 +66,7 @@ struct S3BucketDetailEditorView: View {
 
 // MARK: - View Model
 
-class S3BucketDetailEditorViewModel: ObservableObject {
+fileprivate class S3BucketDetailEditorViewModel: ObservableObject {
     @Published var name: String = ""
     @Published var objectOwnership: ObjectOwnership = .bucketOwnerEnforced
     

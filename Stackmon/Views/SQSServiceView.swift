@@ -23,7 +23,7 @@ struct SQSServiceView: View {
             case .list:
                 SQSQueueListView(region: $appState.region,
                                  queues: $viewModel.queues,
-                                 hasNoData: hasNoData,
+                                 state: tableState,
                                  onAdd: handleAddQueue,
                                  onSendMessage: handleShowSendMessage,
                                  onDelete: handleDeleteQueue,
@@ -54,8 +54,14 @@ struct SQSServiceView: View {
         return SQSService(client: appState.client, region: region, profile: appState.profile)
     }
     
-    private var hasNoData: Bool {
-        !viewModel.loading && viewModel.queues.isEmpty
+    private var tableState: TableState {
+        if viewModel.loading {
+            return .loading
+        } else if viewModel.queues.isEmpty {
+            return .noData
+        } else {
+            return .ready
+        }
     }
     
     private func handleLoad() {
@@ -127,7 +133,7 @@ struct SQSServiceView: View {
 
 // MARK: - View Model
 
-class SQSServiceViewModel: ObservableObject {
+fileprivate class SQSServiceViewModel: ObservableObject {
     @Published var mode: ViewMode = .list
     @Published var queues: [SQSQueue] = []
     @Published var loading: Bool = true
@@ -152,5 +158,13 @@ class SQSServiceViewModel: ObservableObject {
     enum Sheet {
         case none
         case error(_ error: Error)
+    }
+}
+
+// MARK: - Preview
+
+struct SQSServiceView_Preview: PreviewProvider {
+    static var previews: some View {
+        SQSServiceView(view: .sqs)
     }
 }

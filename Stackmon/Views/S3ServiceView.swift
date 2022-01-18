@@ -20,7 +20,7 @@ struct S3ServiceView: View {
             switch viewModel.mode {
             case .list:
                 S3BucketListView(buckets: $viewModel.buckets,
-                                 hasNoBuckets: hasNoBuckets,
+                                 state: tableState,
                                  onAdd: handleAddBucket,
                                  onDelete: handleDeleteBucket)
             case .new:
@@ -45,8 +45,14 @@ struct S3ServiceView: View {
         S3Service(client: appState.client, profile: appState.profile)
     }
     
-    private var hasNoBuckets: Bool {
-        !viewModel.loading && viewModel.buckets.isEmpty
+    private var tableState: TableState {
+        if viewModel.loading {
+            return .loading
+        } else if viewModel.buckets.isEmpty {
+            return .noData
+        } else {
+            return .ready
+        }
     }
     
     private func handleLoad() {
@@ -110,7 +116,7 @@ struct S3ServiceView: View {
 
 // MARK: - View Model
 
-class S3ServiceViewModel: ObservableObject {
+fileprivate class S3ServiceViewModel: ObservableObject {
     @Published var mode: ViewMode = .list
     @Published var buckets: [S3Bucket] = []
     @Published var loading: Bool = true
@@ -134,5 +140,13 @@ class S3ServiceViewModel: ObservableObject {
     enum Sheet {
         case none
         case error(_ error: Error)
+    }
+}
+
+// MARK: - Preview
+
+struct S3ServiceView_Preview: PreviewProvider {
+    static var previews: some View {
+        S3ServiceView(view: .s3)
     }
 }

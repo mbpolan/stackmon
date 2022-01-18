@@ -13,7 +13,7 @@ import SwiftUI
 struct SQSQueueListView: View {
     @Binding var region: Region?
     @Binding var queues: [SQSQueue]
-    let hasNoData: Bool
+    let state: TableState
     let onAdd: () -> Void
     let onSendMessage: (_ queue: SQSQueue) -> Void
     let onDelete: (_ queue: SQSQueue) -> Void
@@ -22,7 +22,7 @@ struct SQSQueueListView: View {
     var body: some View {
         TableListView(data: $queues,
                       configuration: configuration,
-                      hasNoData: hasNoData,
+                      state: state,
                       onRowAction: handleRowAction)
         .navigationSubtitle("Queues")
         .toolbar {
@@ -175,7 +175,7 @@ struct SQSQueueListView_Preview: PreviewProvider {
     static var previews: some View {
         SQSQueueListView(region: $region,
                          queues: $queues,
-                         hasNoData: false,
+                         state: .ready,
                          onAdd: { },
                          onSendMessage: { _ in },
                          onDelete: { _ in },

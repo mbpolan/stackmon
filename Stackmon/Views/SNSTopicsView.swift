@@ -22,7 +22,7 @@ struct SNSTopicsView: View {
             case .list:
                 SNSTopicListView(region: $appState.region,
                                  topics: $viewModel.topics,
-                                 hasNoData: hasNoData,
+                                 state: tableState,
                                  onAdd: handleAddTopic,
                                  onPublish: handleShowPublish,
                                  onDelete: handleDeleteTopic)
@@ -52,8 +52,14 @@ struct SNSTopicsView: View {
         return SNSService(client: appState.client, region: region, profile: appState.profile)
     }
     
-    private var hasNoData: Bool {
-        !viewModel.loading && viewModel.topics.isEmpty
+    private var tableState: TableState {
+        if viewModel.loading {
+            return .loading
+        } else if viewModel.topics.isEmpty {
+            return .noData
+        } else {
+            return .ready
+        }
     }
     
     private func handleLoad() {
