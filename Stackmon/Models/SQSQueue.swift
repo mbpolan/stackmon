@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SQSQueue: Identifiable, ObservableObject {
+class SQSQueue: Identifiable, Hashable, Equatable, ObservableObject {
     @Published var queueURL: String
     @Published var name: String
     @Published var type: QueueType
@@ -18,6 +18,13 @@ class SQSQueue: Identifiable, ObservableObject {
     enum QueueType {
         case standard
         case fifo
+    }
+    
+    static func == (lhs: SQSQueue, rhs: SQSQueue) -> Bool {
+        return lhs.queueURL == rhs.queueURL &&
+        lhs.name == rhs.name &&
+        lhs.type == rhs.type &&
+        lhs.numVisibleMessages == rhs.numVisibleMessages
     }
     
     init(queueURL: String) {
@@ -37,5 +44,9 @@ class SQSQueue: Identifiable, ObservableObject {
     
     var id: String {
         self.queueURL
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(queueURL)
     }
 }

@@ -24,10 +24,15 @@ struct SQSServiceView: View {
                 SQSQueueListView(region: $appState.region,
                                  queues: $viewModel.queues,
                                  state: tableState,
-                                 onAdd: handleAddQueue,
+                                 onAdd: handleShowAddQueue,
                                  onSendMessage: handleShowSendMessage,
                                  onDelete: handleDeleteQueue,
                                  onPurge: handlePurgeQueue)
+                
+            case .add:
+                SQSCreateQueueView(queues: $viewModel.queues,
+                                   onCommit: handleAddQueue,
+                                   onCancel: handleCloseSubView)
                 
             case .sendMessage(let queue):
                 SQSSendMessageView(queue: queue,
@@ -87,8 +92,13 @@ struct SQSServiceView: View {
         })
     }
     
-    private func handleAddQueue() {
-        // TODO
+    private func handleShowAddQueue() {
+        viewModel.mode = .add
+    }
+    
+    private func handleAddQueue(_ request: SQS.CreateQueueRequest) {
+        guard let service = service else { return }
+        service.createQueue(request, completion: afterOperation)
     }
     
     private func handleDeleteQueue(_ queue: SQSQueue) {
@@ -152,6 +162,7 @@ fileprivate class SQSServiceViewModel: ObservableObject {
     enum ViewMode {
         case noRegion
         case list
+        case add
         case sendMessage(_ queue: SQSQueue)
     }
     

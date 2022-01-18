@@ -13,6 +13,13 @@ struct SQSService {
     let region: Region
     let profile: Profile
     
+    func createQueue(_ request: SQS.CreateQueueRequest, completion: @escaping(_ result: Result<Bool, Error>) -> Void) {
+        let operation = sqs.createQueue(request)
+        
+        operation.whenSuccess { _ in completion(.success(true)) }
+        operation.whenFailure { completion(.failure($0)) }
+    }
+    
     func listQueues(completion: @escaping(_ result: Result<[SQSQueue], Error>) -> Void) {
         let request = SQS.ListQueuesRequest(maxResults: 1000)
         let operation = sqs.listQueues(request)
