@@ -44,7 +44,7 @@ struct SQSServiceView: View {
         .sheet(isPresented: $viewModel.sheetShown, onDismiss: handleCloseSheet) {
             switch viewModel.sheet {
             case .error(let error):
-                Text("An error occured: \(error.localizedDescription)")
+                ErrorSheetView(error: error, onDismiss: handleCloseSheet)
             default:
                 Text("An unknown error has occured")
             }

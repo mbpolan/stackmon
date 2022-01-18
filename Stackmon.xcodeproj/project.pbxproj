@@ -15,6 +15,7 @@
 		27795D6A27964D3100D6164E /* NumericField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D6927964D3100D6164E /* NumericField.swift */; };
 		27795D6C279650FF00D6164E /* TimeIntervalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D6B279650FF00D6164E /* TimeIntervalPicker.swift */; };
 		27795D6E279653E000D6164E /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D6D279653E000D6164E /* Interval.swift */; };
+		27795D7027977FEC00D6164E /* ErrorSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D6F27977FEC00D6164E /* ErrorSheetView.swift */; };
 		27DC2B50278A331400944DC7 /* StackmonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B4F278A331400944DC7 /* StackmonApp.swift */; };
 		27DC2B52278A331400944DC7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B51278A331400944DC7 /* ContentView.swift */; };
 		27DC2B54278A331600944DC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27DC2B53278A331600944DC7 /* Assets.xcassets */; };
@@ -68,6 +69,7 @@
 		27795D6927964D3100D6164E /* NumericField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericField.swift; sourceTree = "<group>"; };
 		27795D6B279650FF00D6164E /* TimeIntervalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalPicker.swift; sourceTree = "<group>"; };
 		27795D6D279653E000D6164E /* Interval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
+		27795D6F27977FEC00D6164E /* ErrorSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSheetView.swift; sourceTree = "<group>"; };
 		27DC2B4C278A331400944DC7 /* Stackmon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stackmon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27DC2B4F278A331400944DC7 /* StackmonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackmonApp.swift; sourceTree = "<group>"; };
 		27DC2B51278A331400944DC7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			children = (
 				27DC2BAC27924D1300944DC7 /* AWSRegionPicker.swift */,
 				27DC2B51278A331400944DC7 /* ContentView.swift */,
+				27795D6F27977FEC00D6164E /* ErrorSheetView.swift */,
 				27DC2BB227925B6300944DC7 /* NoRegionMessageView.swift */,
 				27795D6927964D3100D6164E /* NumericField.swift */,
 				27DC2B83278A82A400944DC7 /* S3BucketDetailEditorView.swift */,
@@ -346,6 +349,7 @@
 				27DC2BB72792663B00944DC7 /* RoundedSpan.swift in Sources */,
 				27DC2B8B278B6C4700944DC7 /* DateFormatter.swift in Sources */,
 				27795D6A27964D3100D6164E /* NumericField.swift in Sources */,
+				27795D7027977FEC00D6164E /* ErrorSheetView.swift in Sources */,
 				27DC2B91278B78B500944DC7 /* SQSQueue.swift in Sources */,
 				27DC2BA1278BADDB00944DC7 /* SNSTopicPublishView.swift in Sources */,
 				27795D6827964AB300D6164E /* SQSCreateQueueView.swift in Sources */,
