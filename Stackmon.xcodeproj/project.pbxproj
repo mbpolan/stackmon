@@ -16,6 +16,11 @@
 		27795D6C279650FF00D6164E /* TimeIntervalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D6B279650FF00D6164E /* TimeIntervalPicker.swift */; };
 		27795D6E279653E000D6164E /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D6D279653E000D6164E /* Interval.swift */; };
 		27795D7027977FEC00D6164E /* ErrorSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D6F27977FEC00D6164E /* ErrorSheetView.swift */; };
+		27795D722797880500D6164E /* VPCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D712797880500D6164E /* VPCService.swift */; };
+		27795D7727978C1300D6164E /* SotoEC2 in Frameworks */ = {isa = PBXBuildFile; productRef = 27795D7627978C1300D6164E /* SotoEC2 */; };
+		27795D7927978D3A00D6164E /* VPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D7827978D3A00D6164E /* VPC.swift */; };
+		27795D7B2797908E00D6164E /* VPCServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D7A2797908E00D6164E /* VPCServiceView.swift */; };
+		27795D7D2797916F00D6164E /* VPCListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D7C2797916F00D6164E /* VPCListView.swift */; };
 		27DC2B50278A331400944DC7 /* StackmonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B4F278A331400944DC7 /* StackmonApp.swift */; };
 		27DC2B52278A331400944DC7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B51278A331400944DC7 /* ContentView.swift */; };
 		27DC2B54278A331600944DC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27DC2B53278A331600944DC7 /* Assets.xcassets */; };
@@ -70,6 +75,10 @@
 		27795D6B279650FF00D6164E /* TimeIntervalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalPicker.swift; sourceTree = "<group>"; };
 		27795D6D279653E000D6164E /* Interval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
 		27795D6F27977FEC00D6164E /* ErrorSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSheetView.swift; sourceTree = "<group>"; };
+		27795D712797880500D6164E /* VPCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPCService.swift; sourceTree = "<group>"; };
+		27795D7827978D3A00D6164E /* VPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPC.swift; sourceTree = "<group>"; };
+		27795D7A2797908E00D6164E /* VPCServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPCServiceView.swift; sourceTree = "<group>"; };
+		27795D7C2797916F00D6164E /* VPCListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPCListView.swift; sourceTree = "<group>"; };
 		27DC2B4C278A331400944DC7 /* Stackmon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stackmon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27DC2B4F278A331400944DC7 /* StackmonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackmonApp.swift; sourceTree = "<group>"; };
 		27DC2B51278A331400944DC7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -120,6 +129,7 @@
 				27DC2B70278A35A100944DC7 /* SotoSQS in Frameworks */,
 				27DC2B66278A35A100944DC7 /* SotoGlue in Frameworks */,
 				27DC2B6C278A35A100944DC7 /* SotoS3 in Frameworks */,
+				27795D7727978C1300D6164E /* SotoEC2 in Frameworks */,
 				27DC2B6A278A35A100944DC7 /* SotoLambda in Frameworks */,
 				27DC2B68278A35A100944DC7 /* SotoIAM in Frameworks */,
 			);
@@ -128,11 +138,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		27795D73279789DE00D6164E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		27DC2B43278A331400944DC7 = {
 			isa = PBXGroup;
 			children = (
 				27DC2B4E278A331400944DC7 /* Stackmon */,
 				27DC2B4D278A331400944DC7 /* Products */,
+				27795D73279789DE00D6164E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -203,6 +221,8 @@
 				27DC2B8C278B75B500944DC7 /* SQSServiceView.swift */,
 				27DC2BAA278FC94C00944DC7 /* TableListView.swift */,
 				27795D6B279650FF00D6164E /* TimeIntervalPicker.swift */,
+				27795D7C2797916F00D6164E /* VPCListView.swift */,
+				27795D7A2797908E00D6164E /* VPCServiceView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -213,6 +233,7 @@
 				27DC2B72278A4B5B00944DC7 /* S3Service.swift */,
 				27DC2B9A278BA78F00944DC7 /* SNSService.swift */,
 				27DC2B8E278B763200944DC7 /* SQSService.swift */,
+				27795D712797880500D6164E /* VPCService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -228,6 +249,7 @@
 				27DC2BA4278BC3F600944DC7 /* SNSSubscription.swift */,
 				27DC2B9E278BAA2000944DC7 /* SNSTopic.swift */,
 				27DC2B90278B78B500944DC7 /* SQSQueue.swift */,
+				27795D7827978D3A00D6164E /* VPC.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -277,6 +299,7 @@
 				27DC2B6B278A35A100944DC7 /* SotoS3 */,
 				27DC2B6D278A35A100944DC7 /* SotoSNS */,
 				27DC2B6F278A35A100944DC7 /* SotoSQS */,
+				27795D7627978C1300D6164E /* SotoEC2 */,
 			);
 			productName = Stackmon;
 			productReference = 27DC2B4C278A331400944DC7 /* Stackmon.app */;
@@ -339,6 +362,7 @@
 				27DC2BB327925B6300944DC7 /* NoRegionMessageView.swift in Sources */,
 				27795D6C279650FF00D6164E /* TimeIntervalPicker.swift in Sources */,
 				27795D66279620C000D6164E /* SNSSubscriptionListView.swift in Sources */,
+				27795D7927978D3A00D6164E /* VPC.swift in Sources */,
 				27DC2B97278B9B7D00944DC7 /* String.swift in Sources */,
 				27DC2B88278B5FE600944DC7 /* S3BucketListView.swift in Sources */,
 				27DC2B7A278A6BF600944DC7 /* S3ServiceView.swift in Sources */,
@@ -356,6 +380,7 @@
 				27DC2B7D278A778200944DC7 /* SidebarView.swift in Sources */,
 				27795D6E279653E000D6164E /* Interval.swift in Sources */,
 				27DC2B82278A7C4900944DC7 /* CenteredViewModifier.swift in Sources */,
+				27795D7B2797908E00D6164E /* VPCServiceView.swift in Sources */,
 				27DC2B78278A4E1500944DC7 /* Profile.swift in Sources */,
 				27DC2B8D278B75B500944DC7 /* SQSServiceView.swift in Sources */,
 				27DC2B7F278A7AED00944DC7 /* Events.swift in Sources */,
@@ -374,7 +399,9 @@
 				27795D602793BD2F00D6164E /* SNSTopicsView.swift in Sources */,
 				27DC2B93278B78FD00944DC7 /* SQSQueueListView.swift in Sources */,
 				27DC2B76278A4D0E00944DC7 /* AppState.swift in Sources */,
+				27795D7D2797916F00D6164E /* VPCListView.swift in Sources */,
 				27DC2B8F278B763200944DC7 /* SQSService.swift in Sources */,
+				27795D722797880500D6164E /* VPCService.swift in Sources */,
 				27DC2B9B278BA78F00944DC7 /* SNSService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -586,6 +613,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		27795D7627978C1300D6164E /* SotoEC2 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27DC2B60278A35A100944DC7 /* XCRemoteSwiftPackageReference "soto" */;
+			productName = SotoEC2;
+		};
 		27DC2B61278A35A100944DC7 /* SotoAthena */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 27DC2B60278A35A100944DC7 /* XCRemoteSwiftPackageReference "soto" */;

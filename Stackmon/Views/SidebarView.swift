@@ -39,7 +39,8 @@ fileprivate class SidebarViewModel: ObservableObject {
             ListItem("Subscriptions", service: .sns(component: .subscriptions)),
             ListItem("Topics", service: .sns(component: .topics))
         ]),
-        ListItem("SQS", service: .sqs)
+        ListItem("SQS", service: .sqs),
+        ListItem("VPC", service: .vpc(component: nil))
     ]
     
     struct ListItem: Hashable {

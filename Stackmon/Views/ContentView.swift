@@ -27,6 +27,8 @@ struct ContentView: View {
                         SNSServiceView(view: view)
                     case .sqs:
                         SQSServiceView(view: view)
+                    case .vpc:
+                        VPCServiceView(view: view)
                     }
                 default:
                     Text("Select a service to view")

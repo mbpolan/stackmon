@@ -12,8 +12,13 @@ enum AWSSNSComponent: Hashable {
     case topics
 }
 
+enum AWSVPCComponent: Hashable {
+    case subnets
+}
+
 enum AWSService: Hashable {
     case s3
     case sns(component: AWSSNSComponent?)
     case sqs
+    case vpc(component: AWSVPCComponent?)
 }
