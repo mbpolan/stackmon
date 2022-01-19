@@ -13,6 +13,13 @@ struct VPCService {
     let region: Region
     let profile: Profile
     
+    func createVPC(_ request: EC2.CreateVpcRequest, completion: @escaping(_ result: Result<Bool, Error>) -> Void) {
+        let operation = ec2.createVpc(request)
+        
+        operation.whenSuccess { _ in completion(.success(true)) }
+        operation.whenFailure { completion(.failure($0)) }
+    }
+    
     func listVPCs(completion: @escaping(_ result: Result<[VPC], Error>) -> Void) {
         let request = EC2.DescribeVpcsRequest()
         let operation = ec2.describeVpcs(request)
@@ -35,6 +42,14 @@ struct VPCService {
             completion(.success(vpcs))
         }
         
+        operation.whenFailure { completion(.failure($0)) }
+    }
+    
+    func deleteVPC(_ id: String, completion: @escaping(_ result: Result<Bool, Error>) -> Void) {
+        let request = EC2.DeleteVpcRequest(dryRun: false, vpcId: id)
+        let operation = ec2.deleteVpc(request)
+        
+        operation.whenSuccess { _ in completion(.success(true)) }
         operation.whenFailure { completion(.failure($0)) }
     }
     

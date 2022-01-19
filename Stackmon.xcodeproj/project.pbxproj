@@ -21,6 +21,7 @@
 		27795D7927978D3A00D6164E /* VPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D7827978D3A00D6164E /* VPC.swift */; };
 		27795D7B2797908E00D6164E /* VPCServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D7A2797908E00D6164E /* VPCServiceView.swift */; };
 		27795D7D2797916F00D6164E /* VPCListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D7C2797916F00D6164E /* VPCListView.swift */; };
+		27795D7F2797B33300D6164E /* VPCCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D7E2797B33300D6164E /* VPCCreateView.swift */; };
 		27DC2B50278A331400944DC7 /* StackmonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B4F278A331400944DC7 /* StackmonApp.swift */; };
 		27DC2B52278A331400944DC7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B51278A331400944DC7 /* ContentView.swift */; };
 		27DC2B54278A331600944DC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27DC2B53278A331600944DC7 /* Assets.xcassets */; };
@@ -79,6 +80,7 @@
 		27795D7827978D3A00D6164E /* VPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPC.swift; sourceTree = "<group>"; };
 		27795D7A2797908E00D6164E /* VPCServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPCServiceView.swift; sourceTree = "<group>"; };
 		27795D7C2797916F00D6164E /* VPCListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPCListView.swift; sourceTree = "<group>"; };
+		27795D7E2797B33300D6164E /* VPCCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPCCreateView.swift; sourceTree = "<group>"; };
 		27DC2B4C278A331400944DC7 /* Stackmon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stackmon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27DC2B4F278A331400944DC7 /* StackmonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackmonApp.swift; sourceTree = "<group>"; };
 		27DC2B51278A331400944DC7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				27DC2B8C278B75B500944DC7 /* SQSServiceView.swift */,
 				27DC2BAA278FC94C00944DC7 /* TableListView.swift */,
 				27795D6B279650FF00D6164E /* TimeIntervalPicker.swift */,
+				27795D7E2797B33300D6164E /* VPCCreateView.swift */,
 				27795D7C2797916F00D6164E /* VPCListView.swift */,
 				27795D7A2797908E00D6164E /* VPCServiceView.swift */,
 			);
@@ -369,6 +372,7 @@
 				27DC2B95278B942000944DC7 /* SQSSendMessageView.swift in Sources */,
 				27DC2B52278A331400944DC7 /* ContentView.swift in Sources */,
 				27DC2B9D278BA8CB00944DC7 /* SNSTopicListView.swift in Sources */,
+				27795D7F2797B33300D6164E /* VPCCreateView.swift in Sources */,
 				27DC2B84278A82A400944DC7 /* S3BucketDetailEditorView.swift in Sources */,
 				27DC2BB72792663B00944DC7 /* RoundedSpan.swift in Sources */,
 				27DC2B8B278B6C4700944DC7 /* DateFormatter.swift in Sources */,

@@ -34,6 +34,10 @@ struct VPCServiceView: View {
                 default:
                     EmptyView()
                 }
+            
+            case .add:
+                VPCCreateView(onCommit: handleAddVPC,
+                              onCancel: handleCloseSubView)
             }
         }
         .navigationTitle("Virtual Private Cloud (VPC)")
@@ -89,11 +93,21 @@ struct VPCServiceView: View {
     }
     
     private func handleShowAddVPC() {
-        // TODO
+        viewModel.mode = .add
+    }
+    
+    private func handleAddVPC(_ request: EC2.CreateVpcRequest) {
+        guard let service = service else { return }
+        service.createVPC(request, completion: afterOperation)
     }
     
     private func handleDeleteVPC(_ vpc: VPC) {
-        // TODO
+        guard let service = service else { return }
+        service.deleteVPC(vpc.id, completion: afterOperation)
+    }
+    
+    private func handleCloseSubView() {
+        viewModel.mode = .list
     }
     
     private func handleCloseSheet() {
@@ -134,6 +148,7 @@ fileprivate class VPCServiceViewModel: ObservableObject {
     enum ViewMode {
         case noRegion
         case list
+        case add
     }
     
     enum Sheet {
