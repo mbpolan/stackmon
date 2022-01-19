@@ -45,6 +45,7 @@ struct VPCListView: View {
             noDataText: "There are no VPCs",
             columns: Column.allCases,
             gridColumns: [
+                GridItem(.flexible(minimum: 100), spacing: 0),
                 GridItem(.flexible(minimum: 50), spacing: 0),
                 GridItem(.flexible(minimum: 100), spacing: 0),
                 GridItem(.flexible(minimum: 100), spacing: 0),
@@ -73,6 +74,8 @@ struct VPCListView: View {
 extension VPC: TableCellData {
     func getTextForColumn(_ column: VPCListView.Column) -> String {
         switch column {
+        case .name:
+            return self.name ?? "-"
         case .id:
             return self.id
         case .ipv4CidrBlock:
@@ -96,6 +99,7 @@ extension VPCListView {
     enum Column: TableColumn, CaseIterable {
         typealias ColumnType = Self
         
+        case name
         case id
         case ipv4CidrBlock
         case ipv6CidrBlock
@@ -106,6 +110,8 @@ extension VPCListView {
         
         var label: String {
             switch self {
+            case .name:
+                return "Name"
             case .id:
                 return "VPC ID"
             case .ipv4CidrBlock:
@@ -155,6 +161,7 @@ struct VPCListView_Preview: PreviewProvider {
     @State private static var region: Region? = .useast1
     @State private static var vpcs: [VPC] = [
         VPC(id: "vpc-123",
+            name: nil,
             ipv4CidrBlock: "192.168.0.0/24",
             ipv6CidrBlockAssociationSet: nil,
             state: EC2.VpcState.available,

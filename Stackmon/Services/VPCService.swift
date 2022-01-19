@@ -18,14 +18,18 @@ struct VPCService {
         let operation = ec2.describeVpcs(request)
         
         operation.whenSuccess { result in
-            let vpcs = (result.vpcs ?? []).map { vpc in
+            let vpcs = (result.vpcs ?? []).map { vpc -> VPC in
+                // the name is stored as a tag
+                let name = (vpc.tags ?? []).first { $0.key == "Name" }?.value
+                
                 return VPC(id: vpc.vpcId ?? "",
-                    ipv4CidrBlock: vpc.cidrBlock,
-                    ipv6CidrBlockAssociationSet: nil, // TODO
-                    state: vpc.state,
-                    tenancy: vpc.instanceTenancy,
-                    isDefault: vpc.isDefault,
-                    ownerID: vpc.ownerId)
+                           name: name,
+                           ipv4CidrBlock: vpc.cidrBlock,
+                           ipv6CidrBlockAssociationSet: nil, // TODO
+                           state: vpc.state,
+                           tenancy: vpc.instanceTenancy,
+                           isDefault: vpc.isDefault,
+                           ownerID: vpc.ownerId)
             }
             
             completion(.success(vpcs))
