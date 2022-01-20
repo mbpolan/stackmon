@@ -13,6 +13,7 @@ enum AWSSNSComponent: Hashable {
 }
 
 enum AWSVPCComponent: Hashable {
+    case ipams
     case subnets
 }
 

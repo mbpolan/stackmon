@@ -1,8 +1,8 @@
 //
-//  VPCListView.swift
+//  VPCIPAMListView.swift
 //  Stackmon
 //
-//  Created by Mike Polan on 1/18/22.
+//  Created by Mike Polan on 1/19/22.
 //
 
 import SotoEC2
@@ -10,19 +10,19 @@ import SwiftUI
 
 // MARK: - View
 
-struct VPCListView: View {
+struct VPCIPAMListView: View {
     @Binding var region: Region?
-    @Binding var vpcs: [VPC]
+    @Binding var ipams: [IPAM]
     let state: TableState
     let onAdd: () -> Void
-    let onDelete: (_ vpc: VPC) -> Void
+    let onDelete: (_ ipam: IPAM) -> Void
     
     var body: some View {
-        TableListView(data: $vpcs,
+        TableListView(data: $ipams,
                       configuration: configuration,
                       state: state,
                       onRowAction: handleRowAction)
-            .navigationSubtitle("VPCs")
+            .navigationSubtitle("IPAMs")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     HStack {
@@ -40,9 +40,9 @@ struct VPCListView: View {
             }
     }
     
-    private var configuration: TableListView<VPC, Column, RowAction>.Configuration {
+    private var configuration: TableListView<IPAM, Column, RowAction>.Configuration {
         TableListView.Configuration(
-            noDataText: "There are no VPCs",
+            noDataText: "There are no IPAMs",
             columns: Column.allCases,
             gridColumns: [
                 GridItem(.flexible(minimum: 100), spacing: 0),
@@ -57,7 +57,7 @@ struct VPCListView: View {
             rowActions: RowAction.allCases)
     }
     
-    private func handleRowAction(_ action: RowAction, _ datum: VPC) {
+    private func handleRowAction(_ action: RowAction, _ datum: IPAM) {
         switch action {
         case .delete:
             onDelete(datum)
@@ -71,61 +71,51 @@ struct VPCListView: View {
 
 // MARK: - Extensions
 
-extension VPC: TableCellData {
-    func getTextForColumn(_ column: VPCListView.Column) -> String {
+extension IPAM: TableCellData {
+    func getTextForColumn(_ column: VPCIPAMListView.Column) -> String {
         switch column {
-        case .name:
-            return self.name ?? "-"
         case .id:
             return self.id
-        case .ipv4CidrBlock:
-            return self.ipv4CidrBlock ?? "-"
-        case .ipv6CidrBlock:
-            return self.ipv6CidrBlockAssociationSet ?? "-"
+        case .description:
+            return self.description ?? "-"
         case .state:
-            return self.state?.description ?? "Unknown"
-        case .tenancy:
-            return self.tenancy?.description ?? "Unknown"
-        case .isDefault:
-            guard let isDefault = self.isDefault else { return "Unknown" }
-            return isDefault ? "Yes" : "No"
+            return self.state?.description ?? "-"
+        case .region:
+            return self.region ?? "Unknown"
         case .ownerID:
             return self.ownerID ?? "Unknown"
+        case .scopeCount:
+            guard let scopeCount = self.scopeCount else { return "-" }
+            return String(scopeCount)
         }
     }
 }
 
-extension VPCListView {
+extension VPCIPAMListView {
     enum Column: TableColumn, CaseIterable {
         typealias ColumnType = Self
         
-        case name
         case id
-        case ipv4CidrBlock
-        case ipv6CidrBlock
+        case description
         case state
-        case tenancy
-        case isDefault
+        case region
         case ownerID
+        case scopeCount
         
         var label: String {
             switch self {
-            case .name:
-                return "Name"
             case .id:
-                return "VPC ID"
-            case .ipv4CidrBlock:
-                return "IPv4 CIDR"
-            case .ipv6CidrBlock:
-                return "IPv6 CIDR"
+                return "ID"
+            case .description:
+                return "Description"
             case .state:
                 return "State"
-            case .tenancy:
-                return "Tenant"
-            case .isDefault:
-                return "Default"
+            case .region:
+                return "Region"
             case .ownerID:
-                return "Owner Account ID"
+                return "Owner ID"
+            case .scopeCount:
+                return "Scope Count"
             }
         }
         
@@ -157,25 +147,23 @@ extension VPCListView {
 
 // MARK: - Preview
 
-struct VPCListView_Preview: PreviewProvider {
+struct VPCIPAMListView_Preview: PreviewProvider {
     @State private static var region: Region? = .useast1
-    @State private static var vpcs: [VPC] = [
-        VPC(id: "vpc-123",
-            name: nil,
-            ipv4CidrBlock: "192.168.0.0/24",
-            ipv6CidrBlockAssociationSet: nil,
-            state: EC2.VpcState.available,
-            tenancy: EC2.Tenancy.default,
-            isDefault: true,
-            ownerID: "123456789")
+    @State private static var ipams: [IPAM] = [
+        IPAM(id: "ipam-123",
+             description: "Foo",
+             state: EC2.IpamState.createComplete,
+             region: "us-east-1",
+             ownerID: "000000000",
+             scopeCount: 42)
     ]
     
     static var previews: some View {
-        VPCListView(region: $region,
-                    vpcs: $vpcs,
-                    state: .ready,
-                    onAdd: { },
-                    onDelete: { _ in })
+        VPCIPAMListView(region: $region,
+                        ipams: $ipams,
+                        state: .ready,
+                        onAdd: { },
+                        onDelete: { _ in })
             .frame(width: 500)
     }
 }

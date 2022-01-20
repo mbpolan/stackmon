@@ -40,7 +40,9 @@ fileprivate class SidebarViewModel: ObservableObject {
             ListItem("Topics", service: .sns(component: .topics))
         ]),
         ListItem("SQS", service: .sqs),
-        ListItem("VPC", service: .vpc(component: nil))
+        ListItem("VPC", service: .vpc(component: nil), children: [
+            // ListItem("IPAM", service: .vpc(component: .ipams)) // not implemented by LocalStack yet
+        ])
     ]
     
     struct ListItem: Hashable {

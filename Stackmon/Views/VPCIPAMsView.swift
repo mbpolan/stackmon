@@ -1,8 +1,8 @@
 //
-//  VPCServiceView.swift
+//  VPCIPAMsView.swift
 //  Stackmon
 //
-//  Created by Mike Polan on 1/18/22.
+//  Created by Mike Polan on 1/19/22.
 //
 
 import SotoEC2
@@ -10,9 +10,9 @@ import SwiftUI
 
 // MARK: - View
 
-struct VPCServiceView: View {
+struct VPCIPAMsView: View {
     @EnvironmentObject private var appState: AppState
-    @StateObject private var viewModel: VPCServiceViewModel = VPCServiceViewModel()
+    @StateObject private var viewModel: VPCIPAMViewModel = VPCIPAMViewModel()
     let view: AWSService
     
     var body: some View {
@@ -20,29 +20,19 @@ struct VPCServiceView: View {
             switch viewModel.mode {
             case .noRegion:
                 NoRegionPlaceholderView()
-            case .list:
-                switch view {
-                case .vpc(let component):
-                    switch component {
-                    case .ipams:
-                        VPCIPAMsView(view: view)
-                    default:
-                        VPCListView(region: $appState.region,
-                                    vpcs: $viewModel.vpcs,
-                                    state: tableState,
-                                    onAdd: handleShowAddVPC,
-                                    onDelete: handleDeleteVPC)
-                    }
-                default:
-                    EmptyView()
-                }
                 
+            case .list:
+                VPCIPAMListView(region: $appState.region,
+                                ipams: $viewModel.ipams,
+                                state: tableState,
+                                onAdd: handleShowAddIPAM,
+                                onDelete: handleDeleteIPAM)
             case .add:
-                VPCCreateView(onCommit: handleAddVPC,
-                              onCancel: handleCloseSubView)
+                VPCCreateIPAMView(onCommit: handleAddIPAM,
+                                  onCancel: handleCloseSubView)
             }
         }
-        .navigationTitle("Virtual Private Cloud (VPC)")
+        .navigationSubtitle("IPAMs")
         .sheet(isPresented: $viewModel.sheetShown, onDismiss: handleCloseSheet) {
             switch viewModel.sheet {
             case .error(let error):
@@ -64,7 +54,7 @@ struct VPCServiceView: View {
     private var tableState: TableState {
         if viewModel.loading {
             return .loading
-        } else if viewModel.vpcs.isEmpty {
+        } else if viewModel.ipams.isEmpty {
             return .noData
         } else {
             return .ready
@@ -79,11 +69,11 @@ struct VPCServiceView: View {
         
         viewModel.loading = true
         
-        service.listVPCs(completion: { result in
+        service.listIPAMs(completion: { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let vpcs):
-                    viewModel.vpcs = vpcs
+                case .success(let ipams):
+                    viewModel.ipams = ipams
                 case .failure(let error):
                     print(error)
                     viewModel.sheet = .error(error)
@@ -94,18 +84,18 @@ struct VPCServiceView: View {
         })
     }
     
-    private func handleShowAddVPC() {
+    private func handleShowAddIPAM() {
         viewModel.mode = .add
     }
     
-    private func handleAddVPC(_ request: EC2.CreateVpcRequest) {
+    private func handleAddIPAM(_ request: EC2.CreateIpamRequest) {
         guard let service = service else { return }
-        service.createVPC(request, completion: afterOperation)
+        service.createIPAM(request, completion: afterOperation)
     }
     
-    private func handleDeleteVPC(_ vpc: VPC) {
+    private func handleDeleteIPAM(_ ipam: IPAM) {
         guard let service = service else { return }
-        service.deleteVPC(vpc.id, completion: afterOperation)
+        service.deleteIPAM(ipam.id, completion: afterOperation)
     }
     
     private func handleCloseSubView() {
@@ -131,9 +121,9 @@ struct VPCServiceView: View {
 
 // MARK: - View Model
 
-fileprivate class VPCServiceViewModel: ObservableObject {
+fileprivate class VPCIPAMViewModel: ObservableObject {
     @Published var mode: ViewMode = .list
-    @Published var vpcs: [VPC] = []
+    @Published var ipams: [IPAM] = []
     @Published var loading: Bool = true
     @Published var sheet: Sheet = .none {
         didSet {
@@ -161,8 +151,8 @@ fileprivate class VPCServiceViewModel: ObservableObject {
 
 // MARK: - Preview
 
-struct VPCServiceView_Preview: PreviewProvider {
+struct VPCIPAMView_Preview: PreviewProvider {
     static var previews: some View {
-        VPCServiceView(view: .sns(component: .subscriptions))
+        VPCIPAMsView(view: .vpc(component: .ipams))
     }
 }
