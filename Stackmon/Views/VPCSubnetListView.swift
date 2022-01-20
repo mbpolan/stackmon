@@ -1,5 +1,5 @@
 //
-//  VPCIPAMListView.swift
+//  VPCSubnetListView.swift
 //  Stackmon
 //
 //  Created by Mike Polan on 1/19/22.
@@ -10,19 +10,19 @@ import SwiftUI
 
 // MARK: - View
 
-struct VPCIPAMListView: View {
+struct VPCSubnetListView: View {
     @Binding var region: Region?
-    @Binding var ipams: [IPAM]
+    @Binding var subnets: [Subnet]
     let state: TableState
     let onAdd: () -> Void
-    let onDelete: (_ ipam: IPAM) -> Void
+    let onDelete: (_ subnet: Subnet) -> Void
     
     var body: some View {
-        TableListView(data: $ipams,
+        TableListView(data: $subnets,
                       configuration: configuration,
                       state: state,
                       onRowAction: handleRowAction)
-            .navigationSubtitle("IPAMs")
+            .navigationSubtitle("Subnets")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     HStack {
@@ -40,24 +40,22 @@ struct VPCIPAMListView: View {
             }
     }
     
-    private var configuration: TableListView<IPAM, Column, RowAction>.Configuration {
+    private var configuration: TableListView<Subnet, Column, RowAction>.Configuration {
         TableListView.Configuration(
-            noDataText: "There are no IPAMs",
+            noDataText: "There are no subnets",
             columns: Column.allCases,
             gridColumns: [
+                GridItem(.flexible(minimum: 50), spacing: 0),
+                GridItem(.flexible(minimum: 50), spacing: 0),
                 GridItem(.flexible(minimum: 100), spacing: 0),
                 GridItem(.flexible(minimum: 50), spacing: 0),
                 GridItem(.flexible(minimum: 100), spacing: 0),
-                GridItem(.flexible(minimum: 100), spacing: 0),
-                GridItem(.flexible(minimum: 100), spacing: 0),
-                GridItem(.flexible(minimum: 50), spacing: 0),
-                GridItem(.flexible(minimum: 50), spacing: 0),
-                GridItem(.flexible(minimum: 50), spacing: 0),
+                GridItem(.flexible(minimum: 100), spacing: 0)
             ],
             rowActions: RowAction.allCases)
     }
     
-    private func handleRowAction(_ action: RowAction, _ datum: IPAM) {
+    private func handleRowAction(_ action: RowAction, _ datum: Subnet) {
         switch action {
         case .delete:
             onDelete(datum)
@@ -71,51 +69,50 @@ struct VPCIPAMListView: View {
 
 // MARK: - Extensions
 
-extension IPAM: TableCellData {
-    func getTextForColumn(_ column: VPCIPAMListView.Column) -> String {
+extension Subnet: TableCellData {
+    func getTextForColumn(_ column: VPCSubnetListView.Column) -> String {
         switch column {
         case .id:
             return self.id
-        case .description:
-            return self.description ?? "-"
+        case .name:
+            return self.name ?? "-"
         case .state:
             return self.state?.description ?? "-"
-        case .region:
-            return self.region ?? "Unknown"
-        case .ownerID:
-            return self.ownerID ?? "Unknown"
-        case .scopeCount:
-            guard let scopeCount = self.scopeCount else { return "-" }
-            return String(scopeCount)
+        case .vpcID:
+            return self.vpcID ?? "Unknown"
+        case .ipv4Cidr:
+            return self.ipv4Cidr ?? "-"
+        case .ipv6Cidr:
+            return self.ipv6Cidr ?? "-"
         }
     }
 }
 
-extension VPCIPAMListView {
+extension VPCSubnetListView {
     enum Column: TableColumn, CaseIterable {
         typealias ColumnType = Self
         
         case id
-        case description
+        case name
         case state
-        case region
-        case ownerID
-        case scopeCount
+        case vpcID
+        case ipv4Cidr
+        case ipv6Cidr
         
         var label: String {
             switch self {
             case .id:
                 return "ID"
-            case .description:
-                return "Description"
+            case .name:
+                return "Name"
             case .state:
                 return "State"
-            case .region:
-                return "Region"
-            case .ownerID:
-                return "Owner ID"
-            case .scopeCount:
-                return "Scope Count"
+            case .vpcID:
+                return "VPC ID"
+            case .ipv4Cidr:
+                return "IPv4 CIDR"
+            case .ipv6Cidr:
+                return "IPv6 CIDR"
             }
         }
         
@@ -147,23 +144,23 @@ extension VPCIPAMListView {
 
 // MARK: - Preview
 
-struct VPCIPAMListView_Preview: PreviewProvider {
+struct VPCSubnetList_Preview: PreviewProvider {
     @State private static var region: Region? = .useast1
-    @State private static var ipams: [IPAM] = [
-        IPAM(id: "ipam-123",
-             description: "Foo",
-             state: EC2.IpamState.createComplete,
-             region: "us-east-1",
-             ownerID: "000000000",
-             scopeCount: 42)
+    @State private static var subnets: [Subnet] = [
+        Subnet(id: "subnet-123",
+               name: nil,
+               state: EC2.SubnetState.available,
+               vpcID: "vpc-123",
+               ipv4Cidr: "192.168.0.0/24",
+               ipv6Cidr: nil)
     ]
     
     static var previews: some View {
-        VPCIPAMListView(region: $region,
-                        ipams: $ipams,
-                        state: .ready,
-                        onAdd: { },
-                        onDelete: { _ in })
+        VPCSubnetListView(region: $region,
+                          subnets: $subnets,
+                          state: .ready,
+                          onAdd: { },
+                          onDelete: { _ in })
             .frame(width: 500)
     }
 }

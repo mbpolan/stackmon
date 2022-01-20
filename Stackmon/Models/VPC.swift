@@ -8,7 +8,7 @@
 import Combine
 import SotoEC2
 
-class VPC: ObservableObject {
+class VPC: Hashable, ObservableObject {
     @Published var id: String
     @Published var name: String?
     @Published var ipv4CidrBlock: String?
@@ -17,6 +17,17 @@ class VPC: ObservableObject {
     @Published var tenancy: EC2.Tenancy?
     @Published var isDefault: Bool?
     @Published var ownerID: String?
+    
+    static func == (lhs: VPC, rhs: VPC) -> Bool {
+        return lhs.id == rhs.id &&
+        lhs.name == rhs.name &&
+        lhs.ipv4CidrBlock == rhs.ipv4CidrBlock &&
+        lhs.ipv6CidrBlockAssociationSet == rhs.ipv6CidrBlockAssociationSet &&
+        lhs.state == rhs.state &&
+        lhs.tenancy == rhs.tenancy &&
+        lhs.isDefault == rhs.isDefault &&
+        lhs.ownerID == rhs.ownerID
+    }
     
     init(id: String, name: String?, ipv4CidrBlock: String?, ipv6CidrBlockAssociationSet: String?,
          state: EC2.VpcState?, tenancy: EC2.Tenancy?, isDefault: Bool?, ownerID: String?) {
@@ -29,5 +40,9 @@ class VPC: ObservableObject {
         self.tenancy = tenancy
         self.isDefault = isDefault
         self.ownerID = ownerID
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }

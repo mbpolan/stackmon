@@ -26,6 +26,11 @@
 		27795D832798DFD700D6164E /* IPAM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D822798DFD700D6164E /* IPAM.swift */; };
 		27795D852798E1C000D6164E /* VPCIPAMListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D842798E1C000D6164E /* VPCIPAMListView.swift */; };
 		27795D872798E3D100D6164E /* VPCCreateIPAMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D862798E3D100D6164E /* VPCCreateIPAMView.swift */; };
+		27795D892798F17A00D6164E /* Subnet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D882798F17A00D6164E /* Subnet.swift */; };
+		27795D8B2798F3CF00D6164E /* VPCSubnetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D8A2798F3CF00D6164E /* VPCSubnetsView.swift */; };
+		27795D8D2798F44D00D6164E /* VPCSubnetListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D8C2798F44D00D6164E /* VPCSubnetListView.swift */; };
+		27795D8F2798F58D00D6164E /* VPCCreateSubnetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D8E2798F58D00D6164E /* VPCCreateSubnetView.swift */; };
+		27795D912798FA1D00D6164E /* AvailabilityZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D902798FA1D00D6164E /* AvailabilityZone.swift */; };
 		27DC2B50278A331400944DC7 /* StackmonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B4F278A331400944DC7 /* StackmonApp.swift */; };
 		27DC2B52278A331400944DC7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B51278A331400944DC7 /* ContentView.swift */; };
 		27DC2B54278A331600944DC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27DC2B53278A331600944DC7 /* Assets.xcassets */; };
@@ -89,6 +94,11 @@
 		27795D822798DFD700D6164E /* IPAM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPAM.swift; sourceTree = "<group>"; };
 		27795D842798E1C000D6164E /* VPCIPAMListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPCIPAMListView.swift; sourceTree = "<group>"; };
 		27795D862798E3D100D6164E /* VPCCreateIPAMView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPCCreateIPAMView.swift; sourceTree = "<group>"; };
+		27795D882798F17A00D6164E /* Subnet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subnet.swift; sourceTree = "<group>"; };
+		27795D8A2798F3CF00D6164E /* VPCSubnetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPCSubnetsView.swift; sourceTree = "<group>"; };
+		27795D8C2798F44D00D6164E /* VPCSubnetListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPCSubnetListView.swift; sourceTree = "<group>"; };
+		27795D8E2798F58D00D6164E /* VPCCreateSubnetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPCCreateSubnetView.swift; sourceTree = "<group>"; };
+		27795D902798FA1D00D6164E /* AvailabilityZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityZone.swift; sourceTree = "<group>"; };
 		27DC2B4C278A331400944DC7 /* Stackmon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stackmon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27DC2B4F278A331400944DC7 /* StackmonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackmonApp.swift; sourceTree = "<group>"; };
 		27DC2B51278A331400944DC7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -232,11 +242,14 @@
 				27DC2BAA278FC94C00944DC7 /* TableListView.swift */,
 				27795D6B279650FF00D6164E /* TimeIntervalPicker.swift */,
 				27795D862798E3D100D6164E /* VPCCreateIPAMView.swift */,
+				27795D8E2798F58D00D6164E /* VPCCreateSubnetView.swift */,
 				27795D7E2797B33300D6164E /* VPCCreateView.swift */,
 				27795D842798E1C000D6164E /* VPCIPAMListView.swift */,
 				27795D802798DF5800D6164E /* VPCIPAMsView.swift */,
 				27795D7C2797916F00D6164E /* VPCListView.swift */,
 				27795D7A2797908E00D6164E /* VPCServiceView.swift */,
+				27795D8C2798F44D00D6164E /* VPCSubnetListView.swift */,
+				27795D8A2798F3CF00D6164E /* VPCSubnetsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -256,15 +269,17 @@
 			isa = PBXGroup;
 			children = (
 				27DC2B75278A4D0E00944DC7 /* AppState.swift */,
+				27795D902798FA1D00D6164E /* AvailabilityZone.swift */,
 				27795D612794FCCD00D6164E /* AWSServices.swift */,
 				27795D6D279653E000D6164E /* Interval.swift */,
+				27795D822798DFD700D6164E /* IPAM.swift */,
 				27DC2B77278A4E1500944DC7 /* Profile.swift */,
 				27DC2B85278A833D00944DC7 /* S3Bucket.swift */,
 				27DC2BA4278BC3F600944DC7 /* SNSSubscription.swift */,
 				27DC2B9E278BAA2000944DC7 /* SNSTopic.swift */,
 				27DC2B90278B78B500944DC7 /* SQSQueue.swift */,
+				27795D882798F17A00D6164E /* Subnet.swift */,
 				27795D7827978D3A00D6164E /* VPC.swift */,
-				27795D822798DFD700D6164E /* IPAM.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -376,6 +391,7 @@
 			files = (
 				27795D832798DFD700D6164E /* IPAM.swift in Sources */,
 				27DC2BB327925B6300944DC7 /* NoRegionMessageView.swift in Sources */,
+				27795D8B2798F3CF00D6164E /* VPCSubnetsView.swift in Sources */,
 				27795D6C279650FF00D6164E /* TimeIntervalPicker.swift in Sources */,
 				27795D872798E3D100D6164E /* VPCCreateIPAMView.swift in Sources */,
 				27795D66279620C000D6164E /* SNSSubscriptionListView.swift in Sources */,
@@ -392,6 +408,7 @@
 				27DC2BB72792663B00944DC7 /* RoundedSpan.swift in Sources */,
 				27795D812798DF5800D6164E /* VPCIPAMsView.swift in Sources */,
 				27DC2B8B278B6C4700944DC7 /* DateFormatter.swift in Sources */,
+				27795D8D2798F44D00D6164E /* VPCSubnetListView.swift in Sources */,
 				27795D6A27964D3100D6164E /* NumericField.swift in Sources */,
 				27795D7027977FEC00D6164E /* ErrorSheetView.swift in Sources */,
 				27DC2B91278B78B500944DC7 /* SQSQueue.swift in Sources */,
@@ -404,8 +421,11 @@
 				27DC2B78278A4E1500944DC7 /* Profile.swift in Sources */,
 				27DC2B8D278B75B500944DC7 /* SQSServiceView.swift in Sources */,
 				27DC2B7F278A7AED00944DC7 /* Events.swift in Sources */,
+				27795D8F2798F58D00D6164E /* VPCCreateSubnetView.swift in Sources */,
 				27DC2B86278A833D00944DC7 /* S3Bucket.swift in Sources */,
 				27795D642796203500D6164E /* SNSSubscriptionsView.swift in Sources */,
+				27795D892798F17A00D6164E /* Subnet.swift in Sources */,
+				27795D912798FA1D00D6164E /* AvailabilityZone.swift in Sources */,
 				27DC2B9F278BAA2000944DC7 /* SNSTopic.swift in Sources */,
 				27DC2BB127924EE000944DC7 /* Region.swift in Sources */,
 				27DC2B50278A331400944DC7 /* StackmonApp.swift in Sources */,

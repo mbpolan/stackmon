@@ -1,8 +1,8 @@
 //
-//  VPCServiceView.swift
+//  VPCSubnetsView.swift
 //  Stackmon
 //
-//  Created by Mike Polan on 1/18/22.
+//  Created by Mike Polan on 1/19/22.
 //
 
 import SotoEC2
@@ -10,9 +10,9 @@ import SwiftUI
 
 // MARK: - View
 
-struct VPCServiceView: View {
+struct VPCSubnetsView: View {
     @EnvironmentObject private var appState: AppState
-    @StateObject private var viewModel: VPCServiceViewModel = VPCServiceViewModel()
+    @StateObject private var viewModel: VPCSubnetsViewModel = VPCSubnetsViewModel()
     let view: AWSService
     
     var body: some View {
@@ -20,33 +20,20 @@ struct VPCServiceView: View {
             switch viewModel.mode {
             case .noRegion:
                 NoRegionPlaceholderView()
+                
             case .list:
-                switch view {
-                case .vpc(let component):
-                    switch component {
-                    case .ipams:
-                        VPCIPAMsView(view: view)
-                        
-                    case .subnets:
-                        VPCSubnetsView(view: view)
-                        
-                    default:
-                        VPCListView(region: $appState.region,
-                                    vpcs: $viewModel.vpcs,
-                                    state: tableState,
-                                    onAdd: handleShowAddVPC,
-                                    onDelete: handleDeleteVPC)
-                    }
-                default:
-                    EmptyView()
-                }
+                VPCSubnetListView(region: $appState.region,
+                                  subnets: $viewModel.subnets,
+                                  state: tableState,
+                                  onAdd: handleShowAddSubnet,
+                                  onDelete: handleDeleteSubnet)
                 
             case .add:
-                VPCCreateView(onCommit: handleAddVPC,
-                              onCancel: handleCloseSubView)
+                VPCCreateSubnetView(onCommit: handleAddSubnet,
+                                    onCancel: handleCloseSubView)
             }
         }
-        .navigationTitle("Virtual Private Cloud (VPC)")
+        .navigationSubtitle("Subnets")
         .sheet(isPresented: $viewModel.sheetShown, onDismiss: handleCloseSheet) {
             switch viewModel.sheet {
             case .error(let error):
@@ -68,7 +55,7 @@ struct VPCServiceView: View {
     private var tableState: TableState {
         if viewModel.loading {
             return .loading
-        } else if viewModel.vpcs.isEmpty {
+        } else if viewModel.subnets.isEmpty {
             return .noData
         } else {
             return .ready
@@ -83,11 +70,11 @@ struct VPCServiceView: View {
         
         viewModel.loading = true
         
-        service.listVPCs(completion: { result in
+        service.listSubnets(completion: { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let vpcs):
-                    viewModel.vpcs = vpcs
+                case .success(let subnets):
+                    viewModel.subnets = subnets
                 case .failure(let error):
                     print(error)
                     viewModel.sheet = .error(error)
@@ -98,18 +85,18 @@ struct VPCServiceView: View {
         })
     }
     
-    private func handleShowAddVPC() {
+    private func handleShowAddSubnet() {
         viewModel.mode = .add
     }
     
-    private func handleAddVPC(_ request: EC2.CreateVpcRequest) {
+    private func handleAddSubnet(_ request: EC2.CreateSubnetRequest) {
         guard let service = service else { return }
-        service.createVPC(request, completion: afterOperation)
+        service.createSubnet(request, completion: afterOperation)
     }
     
-    private func handleDeleteVPC(_ vpc: VPC) {
+    private func handleDeleteSubnet(_ subnet: Subnet) {
         guard let service = service else { return }
-        service.deleteVPC(vpc.id, completion: afterOperation)
+        service.deleteSubnet(subnet.id, completion: afterOperation)
     }
     
     private func handleCloseSubView() {
@@ -135,9 +122,10 @@ struct VPCServiceView: View {
 
 // MARK: - View Model
 
-fileprivate class VPCServiceViewModel: ObservableObject {
+fileprivate class VPCSubnetsViewModel: ObservableObject {
     @Published var mode: ViewMode = .list
-    @Published var vpcs: [VPC] = []
+    @Published var zones: [AvailabilityZone] = []
+    @Published var subnets: [Subnet] = []
     @Published var loading: Bool = true
     @Published var sheet: Sheet = .none {
         didSet {
@@ -165,8 +153,8 @@ fileprivate class VPCServiceViewModel: ObservableObject {
 
 // MARK: - Preview
 
-struct VPCServiceView_Preview: PreviewProvider {
+struct VPCSubnetsView_Preview: PreviewProvider {
     static var previews: some View {
-        VPCServiceView(view: .sns(component: .subscriptions))
+        VPCSubnetsView(view: .vpc(component: .subnets))
     }
 }

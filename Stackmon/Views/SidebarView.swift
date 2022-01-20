@@ -41,7 +41,8 @@ fileprivate class SidebarViewModel: ObservableObject {
         ]),
         ListItem("SQS", service: .sqs),
         ListItem("VPC", service: .vpc(component: nil), children: [
-            // ListItem("IPAM", service: .vpc(component: .ipams)) // not implemented by LocalStack yet
+            ListItem("IPAM", service: .vpc(component: .ipams)),
+            ListItem("Subnets", service: .vpc(component: .subnets))
         ])
     ]
     

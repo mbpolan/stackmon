@@ -13,6 +13,22 @@ struct VPCService {
     let region: Region
     let profile: Profile
     
+    func listZones(completion: @escaping(_ result: Result<[AvailabilityZone], Error>) -> Void) {
+        let request = EC2.DescribeAvailabilityZonesRequest()
+        let operation = ec2.describeAvailabilityZones(request)
+        
+        operation.whenSuccess { result in
+            let zones = (result.availabilityZones ?? []).map { zone in
+                AvailabilityZone(id: zone.zoneId ?? "",
+                                 name: zone.zoneName ?? "")
+            }
+            
+            completion(.success(zones))
+        }
+        
+        operation.whenFailure { completion(.failure($0)) }
+    }
+    
     func createVPC(_ request: EC2.CreateVpcRequest, completion: @escaping(_ result: Result<Bool, Error>) -> Void) {
         let operation = ec2.createVpc(request)
         
@@ -53,6 +69,44 @@ struct VPCService {
         operation.whenFailure { completion(.failure($0)) }
     }
     
+    func createSubnet(_ request: EC2.CreateSubnetRequest, completion: @escaping(_ result: Result<Bool, Error>) -> Void) {
+        let operation = ec2.createSubnet(request)
+        
+        operation.whenSuccess { _ in completion(.success(true)) }
+        operation.whenFailure { completion(.failure($0)) }
+    }
+    
+    func listSubnets(completion: @escaping(_ result: Result<[Subnet], Error>) -> Void) {
+        let request = EC2.DescribeSubnetsRequest()
+        let operation = ec2.describeSubnets(request)
+        
+        operation.whenSuccess { result in
+            let subnets = (result.subnets ?? []).map { subnet -> Subnet in
+                // the name is stored as a tag
+                let name = (subnet.tags ?? []).first { $0.key == "Name" }?.value
+                
+                return Subnet(id: subnet.subnetId ?? "",
+                       name: name,
+                       state: subnet.state,
+                       vpcID: subnet.vpcId,
+                       ipv4Cidr: subnet.cidrBlock,
+                       ipv6Cidr: nil)
+            }
+            
+            completion(.success(subnets))
+        }
+        
+        operation.whenFailure { completion(.failure($0)) }
+    }
+    
+    func deleteSubnet(_ id: String, completion: @escaping(_ result: Result<Bool, Error>) -> Void) {
+        let request = EC2.DeleteSubnetRequest(subnetId: id)
+        let operation = ec2.deleteSubnet(request)
+        
+        operation.whenSuccess { _ in completion(.success(true)) }
+        operation.whenFailure { completion(.failure($0)) }
+    }
+    
     func createIPAM(_ request: EC2.CreateIpamRequest, completion: @escaping(_ result: Result<Bool, Error>) -> Void) {
         let operation = ec2.createIpam(request)
         
@@ -73,7 +127,10 @@ struct VPCService {
                      ownerID: ipam.ownerId,
                      scopeCount: ipam.scopeCount)
             }
+            
+            completion(.success(ipams))
         }
+        
         operation.whenFailure { completion(.failure($0)) }
     }
     
