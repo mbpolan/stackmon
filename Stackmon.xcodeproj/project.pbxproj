@@ -31,6 +31,9 @@
 		27795D8D2798F44D00D6164E /* VPCSubnetListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D8C2798F44D00D6164E /* VPCSubnetListView.swift */; };
 		27795D8F2798F58D00D6164E /* VPCCreateSubnetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D8E2798F58D00D6164E /* VPCCreateSubnetView.swift */; };
 		27795D912798FA1D00D6164E /* AvailabilityZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D902798FA1D00D6164E /* AvailabilityZone.swift */; };
+		27795D93279E313600D6164E /* FlexibleHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D92279E313600D6164E /* FlexibleHTTPClient.swift */; };
+		27795D95279F89BE00D6164E /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D94279F89BE00D6164E /* ProfileSettingsView.swift */; };
+		27795D97279F89E800D6164E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D96279F89E800D6164E /* SettingsView.swift */; };
 		27DC2B50278A331400944DC7 /* StackmonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B4F278A331400944DC7 /* StackmonApp.swift */; };
 		27DC2B52278A331400944DC7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B51278A331400944DC7 /* ContentView.swift */; };
 		27DC2B54278A331600944DC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27DC2B53278A331600944DC7 /* Assets.xcassets */; };
@@ -99,6 +102,9 @@
 		27795D8C2798F44D00D6164E /* VPCSubnetListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPCSubnetListView.swift; sourceTree = "<group>"; };
 		27795D8E2798F58D00D6164E /* VPCCreateSubnetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPCCreateSubnetView.swift; sourceTree = "<group>"; };
 		27795D902798FA1D00D6164E /* AvailabilityZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityZone.swift; sourceTree = "<group>"; };
+		27795D92279E313600D6164E /* FlexibleHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleHTTPClient.swift; sourceTree = "<group>"; };
+		27795D94279F89BE00D6164E /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
+		27795D96279F89E800D6164E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		27DC2B4C278A331400944DC7 /* Stackmon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stackmon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27DC2B4F278A331400944DC7 /* StackmonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackmonApp.swift; sourceTree = "<group>"; };
 		27DC2B51278A331400944DC7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -211,8 +217,8 @@
 		27DC2B5E278A332F00944DC7 /* System */ = {
 			isa = PBXGroup;
 			children = (
-				27DC2B4F278A331400944DC7 /* StackmonApp.swift */,
 				27DC2B7E278A7AED00944DC7 /* Events.swift */,
+				27DC2B4F278A331400944DC7 /* StackmonApp.swift */,
 			);
 			path = System;
 			sourceTree = "<group>";
@@ -225,9 +231,11 @@
 				27795D6F27977FEC00D6164E /* ErrorSheetView.swift */,
 				27DC2BB227925B6300944DC7 /* NoRegionMessageView.swift */,
 				27795D6927964D3100D6164E /* NumericField.swift */,
+				27795D94279F89BE00D6164E /* ProfileSettingsView.swift */,
 				27DC2B83278A82A400944DC7 /* S3BucketDetailEditorView.swift */,
 				27DC2B87278B5FE600944DC7 /* S3BucketListView.swift */,
 				27DC2B79278A6BF600944DC7 /* S3ServiceView.swift */,
+				27795D96279F89E800D6164E /* SettingsView.swift */,
 				27DC2B7C278A778200944DC7 /* SidebarView.swift */,
 				27DC2B98278BA6CB00944DC7 /* SNSServiceView.swift */,
 				27795D65279620C000D6164E /* SNSSubscriptionListView.swift */,
@@ -257,6 +265,7 @@
 		27DC2B71278A376500944DC7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				27795D92279E313600D6164E /* FlexibleHTTPClient.swift */,
 				27DC2B72278A4B5B00944DC7 /* S3Service.swift */,
 				27DC2B9A278BA78F00944DC7 /* SNSService.swift */,
 				27DC2B8E278B763200944DC7 /* SQSService.swift */,
@@ -297,9 +306,9 @@
 			isa = PBXGroup;
 			children = (
 				27DC2B8A278B6C4700944DC7 /* DateFormatter.swift */,
+				27DC2BB42792600500944DC7 /* NSBezierPath.swift */,
 				27DC2BB027924EE000944DC7 /* Region.swift */,
 				27DC2B96278B9B7D00944DC7 /* String.swift */,
-				27DC2BB42792600500944DC7 /* NSBezierPath.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -402,10 +411,12 @@
 				27DC2B7A278A6BF600944DC7 /* S3ServiceView.swift in Sources */,
 				27DC2B95278B942000944DC7 /* SQSSendMessageView.swift in Sources */,
 				27DC2B52278A331400944DC7 /* ContentView.swift in Sources */,
+				27795D93279E313600D6164E /* FlexibleHTTPClient.swift in Sources */,
 				27DC2B9D278BA8CB00944DC7 /* SNSTopicListView.swift in Sources */,
 				27795D7F2797B33300D6164E /* VPCCreateView.swift in Sources */,
 				27DC2B84278A82A400944DC7 /* S3BucketDetailEditorView.swift in Sources */,
 				27DC2BB72792663B00944DC7 /* RoundedSpan.swift in Sources */,
+				27795D97279F89E800D6164E /* SettingsView.swift in Sources */,
 				27795D812798DF5800D6164E /* VPCIPAMsView.swift in Sources */,
 				27DC2B8B278B6C4700944DC7 /* DateFormatter.swift in Sources */,
 				27795D8D2798F44D00D6164E /* VPCSubnetListView.swift in Sources */,
@@ -429,6 +440,7 @@
 				27DC2B9F278BAA2000944DC7 /* SNSTopic.swift in Sources */,
 				27DC2BB127924EE000944DC7 /* Region.swift in Sources */,
 				27DC2B50278A331400944DC7 /* StackmonApp.swift in Sources */,
+				27795D95279F89BE00D6164E /* ProfileSettingsView.swift in Sources */,
 				27795D622794FCCD00D6164E /* AWSServices.swift in Sources */,
 				27DC2BA5278BC3F600944DC7 /* SNSSubscription.swift in Sources */,
 				27DC2B99278BA6CB00944DC7 /* SNSServiceView.swift in Sources */,

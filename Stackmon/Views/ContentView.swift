@@ -36,6 +36,7 @@ struct ContentView: View {
                 }
             }
         }
+        .frame(minWidth: 640, minHeight: 480)
         .toolbar {
             ToolbarItem(placement: .navigation) {
                 Button(action: handleSidebar) {
