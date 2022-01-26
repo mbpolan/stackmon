@@ -41,8 +41,8 @@ struct S3ServiceView: View {
         .onRefresh(perform: handleLoad)
     }
     
-    private var service: S3Service {
-        S3Service(client: appState.client, profile: appState.profile)
+    private var service: S3Service? {
+        ServiceProvider.shared.s3(appState)
     }
     
     private var tableState: TableState {
@@ -56,6 +56,8 @@ struct S3ServiceView: View {
     }
     
     private func handleLoad() {
+        guard let service = service else { return }
+
         viewModel.loading = true
         
         service.listBuckets(completion: { result in
@@ -78,6 +80,8 @@ struct S3ServiceView: View {
     }
     
     private func handleNewBucket(_ request: S3.CreateBucketRequest) {
+        guard let service = service else { return }
+        
         service.createBucket(request) { result in
             DispatchQueue.main.async {
                 switch result {
@@ -92,6 +96,8 @@ struct S3ServiceView: View {
     }
     
     private func handleDeleteBucket(_ bucket: S3Bucket) {
+        guard let service = service else { return }
+        
         service.deleteBucket(bucket.name) { result in
             DispatchQueue.main.async {
                 switch result {

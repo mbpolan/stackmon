@@ -55,8 +55,7 @@ struct SQSServiceView: View {
     }
     
     private var service: SQSService? {
-        guard let region = appState.region else { return nil }
-        return SQSService(client: appState.client, region: region, profile: appState.profile)
+        ServiceProvider.shared.sqs(appState)
     }
     
     private var tableState: TableState {

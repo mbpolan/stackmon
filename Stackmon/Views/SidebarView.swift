@@ -14,11 +14,32 @@ struct SidebarView: View {
     @StateObject private var viewModel: SidebarViewModel = SidebarViewModel()
     
     var body: some View {
-        List(viewModel.items, id: \.self, children: \.children, selection: $viewModel.currentItem) { item in
-            HStack {
-                Text(item.label)
-                    .padding(.leading, 3)
+        VStack {
+            Picker("", selection: $appState.profile) {
+                if appState.profiles.isEmpty {
+                    Text("No profiles available")
+                        .tag(nil as Profile?)
+                }
+                
+                ForEach(appState.profiles, id: \.self) { profile in
+                    Text(profile.name)
+                        .tag(profile as Profile?)
+                }
+            }
+            .padding(.trailing, 5)
+            
+            Divider()
+            
+            if appState.hasNoCurrentProfile {
                 Spacer()
+            } else {
+                List(viewModel.items, id: \.self, children: \.children, selection: $viewModel.currentItem) { item in
+                    HStack {
+                        Text(item.label)
+                            .padding(.leading, 3)
+                        Spacer()
+                    }
+                }
             }
         }
         .onChange(of: viewModel.currentItem, perform: handleUpdateSelection)

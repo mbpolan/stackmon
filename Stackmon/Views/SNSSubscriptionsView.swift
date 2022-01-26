@@ -42,8 +42,7 @@ struct SNSSubscriptionsView: View {
     }
     
     private var service: SNSService? {
-        guard let region = appState.region else { return nil }
-        return SNSService(client: appState.client, region: region, profile: appState.profile)
+        ServiceProvider.shared.sns(appState)
     }
     
     private var tableState: TableState {

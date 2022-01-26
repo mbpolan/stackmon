@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		273D0C5827A0F79100021410 /* AWSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D0C5727A0F79100021410 /* AWSClient.swift */; };
+		273D0C5A27A0F95500021410 /* ServiceParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D0C5927A0F95500021410 /* ServiceParameters.swift */; };
+		273D0C5E27A0FBD700021410 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D0C5D27A0FBD700021410 /* ServiceProvider.swift */; };
 		27795D602793BD2F00D6164E /* SNSTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D5F2793BD2F00D6164E /* SNSTopicsView.swift */; };
 		27795D622794FCCD00D6164E /* AWSServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D612794FCCD00D6164E /* AWSServices.swift */; };
 		27795D642796203500D6164E /* SNSSubscriptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D632796203500D6164E /* SNSSubscriptionsView.swift */; };
@@ -79,6 +82,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		273D0C5727A0F79100021410 /* AWSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSClient.swift; sourceTree = "<group>"; };
+		273D0C5927A0F95500021410 /* ServiceParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceParameters.swift; sourceTree = "<group>"; };
+		273D0C5D27A0FBD700021410 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		27795D5F2793BD2F00D6164E /* SNSTopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSTopicsView.swift; sourceTree = "<group>"; };
 		27795D612794FCCD00D6164E /* AWSServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSServices.swift; sourceTree = "<group>"; };
 		27795D632796203500D6164E /* SNSSubscriptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSSubscriptionsView.swift; sourceTree = "<group>"; };
@@ -267,9 +273,11 @@
 			children = (
 				27795D92279E313600D6164E /* FlexibleHTTPClient.swift */,
 				27DC2B72278A4B5B00944DC7 /* S3Service.swift */,
+				273D0C5927A0F95500021410 /* ServiceParameters.swift */,
 				27DC2B9A278BA78F00944DC7 /* SNSService.swift */,
 				27DC2B8E278B763200944DC7 /* SQSService.swift */,
 				27795D712797880500D6164E /* VPCService.swift */,
+				273D0C5D27A0FBD700021410 /* ServiceProvider.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -305,6 +313,7 @@
 		27DC2B89278B6C3500944DC7 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				273D0C5727A0F79100021410 /* AWSClient.swift */,
 				27DC2B8A278B6C4700944DC7 /* DateFormatter.swift */,
 				27DC2BB42792600500944DC7 /* NSBezierPath.swift */,
 				27DC2BB027924EE000944DC7 /* Region.swift */,
@@ -408,6 +417,7 @@
 				27DC2B97278B9B7D00944DC7 /* String.swift in Sources */,
 				27DC2B88278B5FE600944DC7 /* S3BucketListView.swift in Sources */,
 				27795D852798E1C000D6164E /* VPCIPAMListView.swift in Sources */,
+				273D0C5827A0F79100021410 /* AWSClient.swift in Sources */,
 				27DC2B7A278A6BF600944DC7 /* S3ServiceView.swift in Sources */,
 				27DC2B95278B942000944DC7 /* SQSSendMessageView.swift in Sources */,
 				27DC2B52278A331400944DC7 /* ContentView.swift in Sources */,
@@ -433,12 +443,14 @@
 				27DC2B8D278B75B500944DC7 /* SQSServiceView.swift in Sources */,
 				27DC2B7F278A7AED00944DC7 /* Events.swift in Sources */,
 				27795D8F2798F58D00D6164E /* VPCCreateSubnetView.swift in Sources */,
+				273D0C5E27A0FBD700021410 /* ServiceProvider.swift in Sources */,
 				27DC2B86278A833D00944DC7 /* S3Bucket.swift in Sources */,
 				27795D642796203500D6164E /* SNSSubscriptionsView.swift in Sources */,
 				27795D892798F17A00D6164E /* Subnet.swift in Sources */,
 				27795D912798FA1D00D6164E /* AvailabilityZone.swift in Sources */,
 				27DC2B9F278BAA2000944DC7 /* SNSTopic.swift in Sources */,
 				27DC2BB127924EE000944DC7 /* Region.swift in Sources */,
+				273D0C5A27A0F95500021410 /* ServiceParameters.swift in Sources */,
 				27DC2B50278A331400944DC7 /* StackmonApp.swift in Sources */,
 				27795D95279F89BE00D6164E /* ProfileSettingsView.swift in Sources */,
 				27795D622794FCCD00D6164E /* AWSServices.swift in Sources */,

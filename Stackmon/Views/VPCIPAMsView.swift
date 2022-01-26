@@ -47,8 +47,7 @@ struct VPCIPAMsView: View {
     }
     
     private var service: VPCService? {
-        guard let region = appState.region else { return nil }
-        return VPCService(client: appState.client, region: region, profile: appState.profile)
+        ServiceProvider.shared.vpc(appState)
     }
     
     private var tableState: TableState {
