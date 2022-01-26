@@ -55,7 +55,9 @@ struct SQSService {
     }
     
     private var sqs: SQS {
-        SQS(client: client, region: region, endpoint: "http://localhost:4566")
+        SQS(client: client,
+            region: region,
+            endpoint: profile.endpoint.emptyAsNil())
     }
     
     private func getQueueSummaries(_ queueURLs: [String], completion: @escaping(_ result: Result<[SQSQueue], Error>) -> Void) {

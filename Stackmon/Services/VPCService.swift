@@ -143,6 +143,8 @@ struct VPCService {
     }
     
     private var ec2: EC2 {
-        EC2(client: client, region: region, endpoint: "http://localhost:4566")
+        EC2(client: client,
+            region: region,
+            endpoint: profile.endpoint.emptyAsNil())
     }
 }

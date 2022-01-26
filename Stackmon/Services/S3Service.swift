@@ -41,6 +41,8 @@ struct S3Service {
     }
     
     private var s3: S3 {
-        S3(client: client, region: profile.region, endpoint: "http://localhost:4566")
+        S3(client: client,
+           region: profile.region,
+           endpoint: profile.endpoint.emptyAsNil())
     }
 }

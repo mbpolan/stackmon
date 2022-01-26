@@ -274,10 +274,10 @@
 				27795D92279E313600D6164E /* FlexibleHTTPClient.swift */,
 				27DC2B72278A4B5B00944DC7 /* S3Service.swift */,
 				273D0C5927A0F95500021410 /* ServiceParameters.swift */,
+				273D0C5D27A0FBD700021410 /* ServiceProvider.swift */,
 				27DC2B9A278BA78F00944DC7 /* SNSService.swift */,
 				27DC2B8E278B763200944DC7 /* SQSService.swift */,
 				27795D712797880500D6164E /* VPCService.swift */,
-				273D0C5D27A0FBD700021410 /* ServiceProvider.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";

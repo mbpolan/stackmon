@@ -76,7 +76,9 @@ struct SNSService {
     }
     
     private var sns: SNS {
-        SNS(client: client, region: region, endpoint: "http://localhost:4566")
+        SNS(client: client,
+            region: region,
+            endpoint: profile.endpoint.emptyAsNil())
     }
     
     private enum TopicAttributeName: String {
