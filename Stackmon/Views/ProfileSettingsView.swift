@@ -15,10 +15,23 @@ struct ProfileSettingsView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
-            VStack {
+            VStack(spacing: 0) {
                 List(appState.profiles, id: \.self, selection: $viewModel.selection) { profile in
-                    Text(profile.name)
+                    if viewModel.editing == profile {
+                        TextField("", text: editingProfile.name) {
+                            viewModel.editing = nil
+                        }
+                    } else {
+                        Text(profile.name)
+                            .onTapGesture(count: 2) {
+                                viewModel.editing = profile
+                            }
+                            .onTapGesture {
+                                viewModel.selection = profile
+                            }
+                    }
                 }
+                .padding(.bottom, 5)
                 
                 Divider()
                 
@@ -38,8 +51,8 @@ struct ProfileSettingsView: View {
                     
                     Spacer()
                 }
-                .padding(.leading, 5)
-                .padding(.bottom, 3)
+                .padding(.leading, 10)
+                .padding([.top, .bottom], 5)
             }
             .frame(width: 150)
             
@@ -63,6 +76,13 @@ struct ProfileSettingsView: View {
         Binding<Profile>(
             get: { return viewModel.selection ?? Profile(name: "" ) },
             set: { viewModel.selection = $0 }
+        )
+    }
+    
+    private var editingProfile: Binding<Profile> {
+        Binding<Profile>(
+            get: { return viewModel.editing ?? Profile(name: "" ) },
+            set: { viewModel.editing = $0 }
         )
     }
     
@@ -112,6 +132,7 @@ fileprivate struct ProfileEditorView: View {
 
 class ProfileSettingsViewModel: ObservableObject {
     @Published var selection: Profile?
+    @Published var editing: Profile?
 }
 
 // MARK: - Preview

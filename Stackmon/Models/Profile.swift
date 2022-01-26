@@ -6,11 +6,13 @@
 //
 
 import Combine
+import Foundation
 import SotoCore
 
 class Profile: Identifiable, Hashable, Equatable, ObservableObject {
     static var `default`: Profile = Profile(name: "default")
     
+    let profileId: String = UUID().uuidString
     @Published var name: String
     @Published var region: Region? = .useast1
     @Published var endpoint: String = ""
@@ -26,10 +28,10 @@ class Profile: Identifiable, Hashable, Equatable, ObservableObject {
     }
     
     var id: String {
-        name
+        profileId
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
+        hasher.combine(id)
     }
 }
