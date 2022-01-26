@@ -16,6 +16,10 @@ class Profile: Identifiable, Hashable, Equatable, ObservableObject {
     @Published var name: String
     @Published var region: Region? = .useast1
     @Published var endpoint: String = ""
+    @Published var authenticationType: AuthenticationType = .iam
+    @Published var accessKeyId: String = ""
+    @Published var secretAccessKey: String = ""
+    @Published var sessionToken: String = ""
     
     static func == (lhs: Profile, rhs: Profile) -> Bool {
         return lhs.name == rhs.name &&
@@ -33,5 +37,11 @@ class Profile: Identifiable, Hashable, Equatable, ObservableObject {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+    }
+}
+
+extension Profile {
+    enum AuthenticationType: CaseIterable {
+        case iam
     }
 }

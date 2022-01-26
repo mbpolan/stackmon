@@ -115,15 +115,60 @@ fileprivate struct ProfileEditorView: View {
     @Binding var profile: Profile
     
     var body: some View {
-        LazyVGrid(columns: [
-            GridItem(.flexible(minimum: 80)),
-            GridItem(.flexible(minimum: 150)),
-        ], alignment: .center) {
-            Text("Default Region")
-            AWSRegionPicker(region: $profile.region)
+        VStack {
+            Section(header: Text("General")) {
+                LazyVGrid(columns: [
+                    GridItem(.flexible(minimum: 80)),
+                    GridItem(.flexible(minimum: 150)),
+                ], alignment: .center) {
+                    Text("Default Region")
+                    AWSRegionPicker(region: $profile.region)
+                    
+                    Text("Service URL")
+                    TextField("", text: $profile.endpoint)
+                }
+            }
+            .padding(.bottom, 10)
             
-            Text("Service URL")
-            TextField("", text: $profile.endpoint)
+            Section(header: Text("Authentication")) {
+                LazyVGrid(columns: [
+                    GridItem(.flexible(minimum: 80)),
+                    GridItem(.flexible(minimum: 150)),
+                ], alignment: .center) {
+                    Text("Method")
+                    Picker("", selection: $profile.authenticationType) {
+                        ForEach(Profile.AuthenticationType.allCases, id: \.self) { authenticationType in
+                            Text(authenticationType.label)
+                                .id(authenticationType)
+                        }
+                    }
+                    
+                    switch profile.authenticationType {
+                    case .iam:
+                        Group {
+                            Text("Access Key ID")
+                            SecureField("", text: $profile.accessKeyId)
+                            
+                            Text("Secret Access Key")
+                            SecureField("", text: $profile.secretAccessKey)
+                            
+                            Text("Session Token")
+                            SecureField("", text: $profile.sessionToken)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Extensions
+
+extension Profile.AuthenticationType {
+    var label: String {
+        switch self {
+        case .iam:
+            return "IAM Credentials"
         }
     }
 }
