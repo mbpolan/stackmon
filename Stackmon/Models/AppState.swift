@@ -15,12 +15,7 @@ class AppState: ObservableObject {
     @Published var currentView: AWSService?
     @Published var profile: Profile? {
         didSet {
-            guard let profile = profile else {
-                client = nil
-                return
-            }
-            
-            client = AWSClient(for: profile)
+            handleUpdateClient()
         }
     }
     
@@ -48,5 +43,23 @@ class AppState: ObservableObject {
         return ServiceParameters(client: client,
                                  profile: profile,
                                  region: region)
+    }
+    
+    private func handleUpdateClient() {
+        // shut down any existing client before creating a new one
+        if let client = client {
+            do {
+                try client.syncShutdown()
+            } catch {
+                print("Failed to shutdown client: \(error)")
+            }
+        }
+        
+        guard let profile = profile else {
+            client = nil
+            return
+        }
+        
+        client = AWSClient(for: profile)
     }
 }
