@@ -7,17 +7,17 @@
 
 import Foundation
 
-enum AWSSNSComponent: Hashable {
+enum AWSSNSComponent: Hashable, Codable {
     case subscriptions
     case topics
 }
 
-enum AWSVPCComponent: Hashable {
+enum AWSVPCComponent: Hashable, Codable {
     case ipams
     case subnets
 }
 
-enum AWSService: Hashable {
+enum AWSService: Hashable, Codable {
     case s3
     case sns(component: AWSSNSComponent?)
     case sqs

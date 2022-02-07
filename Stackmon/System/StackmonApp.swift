@@ -9,16 +9,15 @@ import SwiftUI
 
 @main
 struct StackmonApp: App {
-    private let appState: AppState
-    
-    init() {
-        self.appState = AppState()
-    }
+    @StateObject private var appState: AppState = AppState()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(appState)
+                .onAppear(perform: handleAppear)
+                .onChange(of: appState.region, perform: { _ in handleSaveAppState() })
+                .onChange(of: appState.profile, perform: { _ in handleSaveAppState() })
         }
         .windowToolbarStyle(.unifiedCompact)
         
@@ -26,5 +25,15 @@ struct StackmonApp: App {
             SettingsView()
                 .environmentObject(appState)
         }
+    }
+    
+    private func handleAppear() {
+        print("Loading app state")
+        appState.load()
+    }
+    
+    private func handleSaveAppState() {
+        print("Persisting app state")
+        appState.save()
     }
 }
