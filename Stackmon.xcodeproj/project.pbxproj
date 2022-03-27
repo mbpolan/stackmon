@@ -177,6 +177,56 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		27C604CF27EFEA6D006AD7C3 /* S3 */ = {
+			isa = PBXGroup;
+			children = (
+				27DC2B83278A82A400944DC7 /* S3BucketDetailEditorView.swift */,
+				27DC2B87278B5FE600944DC7 /* S3BucketListView.swift */,
+				27DC2B79278A6BF600944DC7 /* S3ServiceView.swift */,
+			);
+			path = S3;
+			sourceTree = "<group>";
+		};
+		27C604D027EFEA76006AD7C3 /* SQS */ = {
+			isa = PBXGroup;
+			children = (
+				27795D6727964AB300D6164E /* SQSCreateQueueView.swift */,
+				27DC2B92278B78FD00944DC7 /* SQSQueueListView.swift */,
+				27DC2B94278B942000944DC7 /* SQSSendMessageView.swift */,
+				27DC2B8C278B75B500944DC7 /* SQSServiceView.swift */,
+			);
+			path = SQS;
+			sourceTree = "<group>";
+		};
+		27C604D127EFEA7C006AD7C3 /* SNS */ = {
+			isa = PBXGroup;
+			children = (
+				27DC2B98278BA6CB00944DC7 /* SNSServiceView.swift */,
+				27795D65279620C000D6164E /* SNSSubscriptionListView.swift */,
+				27795D632796203500D6164E /* SNSSubscriptionsView.swift */,
+				27DC2B9C278BA8CB00944DC7 /* SNSTopicListView.swift */,
+				27DC2BA0278BADDB00944DC7 /* SNSTopicPublishView.swift */,
+				27795D5F2793BD2F00D6164E /* SNSTopicsView.swift */,
+			);
+			path = SNS;
+			sourceTree = "<group>";
+		};
+		27C604D227EFEAB8006AD7C3 /* VPC */ = {
+			isa = PBXGroup;
+			children = (
+				27795D862798E3D100D6164E /* VPCCreateIPAMView.swift */,
+				27795D8E2798F58D00D6164E /* VPCCreateSubnetView.swift */,
+				27795D7E2797B33300D6164E /* VPCCreateView.swift */,
+				27795D842798E1C000D6164E /* VPCIPAMListView.swift */,
+				27795D802798DF5800D6164E /* VPCIPAMsView.swift */,
+				27795D7C2797916F00D6164E /* VPCListView.swift */,
+				27795D7A2797908E00D6164E /* VPCServiceView.swift */,
+				27795D8C2798F44D00D6164E /* VPCSubnetListView.swift */,
+				27795D8A2798F3CF00D6164E /* VPCSubnetsView.swift */,
+			);
+			path = VPC;
+			sourceTree = "<group>";
+		};
 		27DC2B43278A331400944DC7 = {
 			isa = PBXGroup;
 			children = (
@@ -238,32 +288,14 @@
 				27DC2BB227925B6300944DC7 /* NoRegionMessageView.swift */,
 				27795D6927964D3100D6164E /* NumericField.swift */,
 				27795D94279F89BE00D6164E /* ProfileSettingsView.swift */,
-				27DC2B83278A82A400944DC7 /* S3BucketDetailEditorView.swift */,
-				27DC2B87278B5FE600944DC7 /* S3BucketListView.swift */,
-				27DC2B79278A6BF600944DC7 /* S3ServiceView.swift */,
 				27795D96279F89E800D6164E /* SettingsView.swift */,
 				27DC2B7C278A778200944DC7 /* SidebarView.swift */,
-				27DC2B98278BA6CB00944DC7 /* SNSServiceView.swift */,
-				27795D65279620C000D6164E /* SNSSubscriptionListView.swift */,
-				27795D632796203500D6164E /* SNSSubscriptionsView.swift */,
-				27DC2B9C278BA8CB00944DC7 /* SNSTopicListView.swift */,
-				27DC2BA0278BADDB00944DC7 /* SNSTopicPublishView.swift */,
-				27795D5F2793BD2F00D6164E /* SNSTopicsView.swift */,
-				27795D6727964AB300D6164E /* SQSCreateQueueView.swift */,
-				27DC2B92278B78FD00944DC7 /* SQSQueueListView.swift */,
-				27DC2B94278B942000944DC7 /* SQSSendMessageView.swift */,
-				27DC2B8C278B75B500944DC7 /* SQSServiceView.swift */,
 				27DC2BAA278FC94C00944DC7 /* TableListView.swift */,
 				27795D6B279650FF00D6164E /* TimeIntervalPicker.swift */,
-				27795D862798E3D100D6164E /* VPCCreateIPAMView.swift */,
-				27795D8E2798F58D00D6164E /* VPCCreateSubnetView.swift */,
-				27795D7E2797B33300D6164E /* VPCCreateView.swift */,
-				27795D842798E1C000D6164E /* VPCIPAMListView.swift */,
-				27795D802798DF5800D6164E /* VPCIPAMsView.swift */,
-				27795D7C2797916F00D6164E /* VPCListView.swift */,
-				27795D7A2797908E00D6164E /* VPCServiceView.swift */,
-				27795D8C2798F44D00D6164E /* VPCSubnetListView.swift */,
-				27795D8A2798F3CF00D6164E /* VPCSubnetsView.swift */,
+				27C604CF27EFEA6D006AD7C3 /* S3 */,
+				27C604D127EFEA7C006AD7C3 /* SNS */,
+				27C604D027EFEA76006AD7C3 /* SQS */,
+				27C604D227EFEAB8006AD7C3 /* VPC */,
 			);
 			path = Views;
 			sourceTree = "<group>";
