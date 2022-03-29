@@ -40,6 +40,29 @@ struct S3Service {
         operation.whenFailure { completion(.failure($0)) }
     }
     
+    func listObjects(_ request: S3.ListObjectsV2Request, completion: @escaping(_ result: Result<PagedData<S3Object>, Error>) -> Void) {
+        let operation = s3.listObjectsV2(request)
+        
+        operation.whenSuccess { response in
+            completion(.success(PagedData<S3Object>(
+                hasMore: response.isTruncated ?? false,
+                total: nil,
+                nextToken: response.continuationToken,
+                data: (response.contents ?? []).map { obj in
+                    S3Object(key: obj.key ?? "", modified: obj.lastModified)
+                })))
+        }
+        
+        operation.whenFailure { completion(.failure($0)) }
+    }
+    
+    func putObject(_ request: S3.PutObjectRequest, completion: @escaping(_ result: Result<Bool, Error>) -> Void) {
+        let operation = s3.putObject(request)
+        
+        operation.whenSuccess { _ in completion(.success(true)) }
+        operation.whenFailure { completion(.failure($0)) }
+    }
+    
     private var s3: S3 {
         S3(client: client,
            region: profile.region,

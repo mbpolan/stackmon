@@ -16,6 +16,7 @@ struct S3BucketListView: View {
     let state: TableState
     let onAdd: () -> Void
     let onDelete: (_ bucket: S3Bucket) -> Void
+    let onBrowse: (_ bucket: S3Bucket) -> Void
     
     var body: some View {
         TableListView(data: $buckets,
@@ -54,6 +55,8 @@ struct S3BucketListView: View {
     
     private func handleRowAction(_ action: RowAction, _ datum: S3Bucket) {
         switch action {
+        case .browse:
+            onBrowse(datum)
         case .delete:
             onDelete(datum)
         }
@@ -105,12 +108,15 @@ extension S3BucketListView {
     enum RowAction: TableRowAction, CaseIterable {
         typealias T = Self
         
+        case browse
         case delete
         
         var id: Self { self }
         
         var label: String {
             switch self {
+            case .browse:
+                return "Browse"
             case .delete:
                 return "Delete"
             }
@@ -133,6 +139,7 @@ struct S3BucketListView_Preview: PreviewProvider {
         S3BucketListView(buckets: $buckets,
                          state: .ready,
                          onAdd: { },
-                         onDelete: { _ in })
+                         onDelete: { _ in },
+                         onBrowse: { _ in })
     }
 }

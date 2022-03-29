@@ -22,10 +22,14 @@ struct S3ServiceView: View {
                 S3BucketListView(buckets: $viewModel.buckets,
                                  state: tableState,
                                  onAdd: handleAddBucket,
-                                 onDelete: handleDeleteBucket)
+                                 onDelete: handleDeleteBucket,
+                                 onBrowse: handleBrowseBucket)
             case .new:
                 S3BucketDetailEditorView(onCommit: handleNewBucket,
                                          onCancel: handleCloseNewBucket)
+                
+            case .browse(let bucket):
+                S3BucketBrowserView(bucket: bucket)
             }
         }
         .navigationTitle("Simple Storage Service (S3)")
@@ -57,7 +61,7 @@ struct S3ServiceView: View {
     
     private func handleLoad() {
         guard let service = service else { return }
-
+        
         viewModel.loading = true
         
         service.listBuckets(completion: { result in
@@ -111,6 +115,10 @@ struct S3ServiceView: View {
         }
     }
     
+    private func handleBrowseBucket(_ bucket: S3Bucket) {
+        viewModel.mode = .browse(bucket)
+    }
+    
     private func handleCloseNewBucket() {
         viewModel.mode = .list
     }
@@ -141,6 +149,7 @@ fileprivate class S3ServiceViewModel: ObservableObject {
     enum ViewMode {
         case list
         case new
+        case browse(_ bucket: S3Bucket)
     }
     
     enum Sheet {

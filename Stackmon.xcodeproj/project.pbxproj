@@ -37,6 +37,9 @@
 		27795D93279E313600D6164E /* FlexibleHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D92279E313600D6164E /* FlexibleHTTPClient.swift */; };
 		27795D95279F89BE00D6164E /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D94279F89BE00D6164E /* ProfileSettingsView.swift */; };
 		27795D97279F89E800D6164E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27795D96279F89E800D6164E /* SettingsView.swift */; };
+		27C604D427EFEB30006AD7C3 /* S3BucketBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C604D327EFEB30006AD7C3 /* S3BucketBrowserView.swift */; };
+		27C604D627EFEDBD006AD7C3 /* S3Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C604D527EFEDBD006AD7C3 /* S3Object.swift */; };
+		27C604D827EFEE8E006AD7C3 /* PagedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C604D727EFEE8E006AD7C3 /* PagedData.swift */; };
 		27DC2B50278A331400944DC7 /* StackmonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B4F278A331400944DC7 /* StackmonApp.swift */; };
 		27DC2B52278A331400944DC7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC2B51278A331400944DC7 /* ContentView.swift */; };
 		27DC2B54278A331600944DC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27DC2B53278A331600944DC7 /* Assets.xcassets */; };
@@ -111,6 +114,9 @@
 		27795D92279E313600D6164E /* FlexibleHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleHTTPClient.swift; sourceTree = "<group>"; };
 		27795D94279F89BE00D6164E /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
 		27795D96279F89E800D6164E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		27C604D327EFEB30006AD7C3 /* S3BucketBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3BucketBrowserView.swift; sourceTree = "<group>"; };
+		27C604D527EFEDBD006AD7C3 /* S3Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3Object.swift; sourceTree = "<group>"; };
+		27C604D727EFEE8E006AD7C3 /* PagedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedData.swift; sourceTree = "<group>"; };
 		27DC2B4C278A331400944DC7 /* Stackmon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stackmon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27DC2B4F278A331400944DC7 /* StackmonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackmonApp.swift; sourceTree = "<group>"; };
 		27DC2B51278A331400944DC7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -183,6 +189,7 @@
 				27DC2B83278A82A400944DC7 /* S3BucketDetailEditorView.swift */,
 				27DC2B87278B5FE600944DC7 /* S3BucketListView.swift */,
 				27DC2B79278A6BF600944DC7 /* S3ServiceView.swift */,
+				27C604D327EFEB30006AD7C3 /* S3BucketBrowserView.swift */,
 			);
 			path = S3;
 			sourceTree = "<group>";
@@ -322,8 +329,10 @@
 				27795D612794FCCD00D6164E /* AWSServices.swift */,
 				27795D6D279653E000D6164E /* Interval.swift */,
 				27795D822798DFD700D6164E /* IPAM.swift */,
+				27C604D727EFEE8E006AD7C3 /* PagedData.swift */,
 				27DC2B77278A4E1500944DC7 /* Profile.swift */,
 				27DC2B85278A833D00944DC7 /* S3Bucket.swift */,
+				27C604D527EFEDBD006AD7C3 /* S3Object.swift */,
 				27DC2BA4278BC3F600944DC7 /* SNSSubscription.swift */,
 				27DC2B9E278BAA2000944DC7 /* SNSTopic.swift */,
 				27DC2B90278B78B500944DC7 /* SQSQueue.swift */,
@@ -443,10 +452,12 @@
 				27DC2BB327925B6300944DC7 /* NoRegionMessageView.swift in Sources */,
 				27795D8B2798F3CF00D6164E /* VPCSubnetsView.swift in Sources */,
 				27795D6C279650FF00D6164E /* TimeIntervalPicker.swift in Sources */,
+				27C604D827EFEE8E006AD7C3 /* PagedData.swift in Sources */,
 				27795D872798E3D100D6164E /* VPCCreateIPAMView.swift in Sources */,
 				27795D66279620C000D6164E /* SNSSubscriptionListView.swift in Sources */,
 				27795D7927978D3A00D6164E /* VPC.swift in Sources */,
 				27DC2B97278B9B7D00944DC7 /* String.swift in Sources */,
+				27C604D427EFEB30006AD7C3 /* S3BucketBrowserView.swift in Sources */,
 				27DC2B88278B5FE600944DC7 /* S3BucketListView.swift in Sources */,
 				27795D852798E1C000D6164E /* VPCIPAMListView.swift in Sources */,
 				273D0C5827A0F79100021410 /* AWSClient.swift in Sources */,
@@ -462,6 +473,7 @@
 				27795D812798DF5800D6164E /* VPCIPAMsView.swift in Sources */,
 				27DC2B8B278B6C4700944DC7 /* DateFormatter.swift in Sources */,
 				27795D8D2798F44D00D6164E /* VPCSubnetListView.swift in Sources */,
+				27C604D627EFEDBD006AD7C3 /* S3Object.swift in Sources */,
 				27795D6A27964D3100D6164E /* NumericField.swift in Sources */,
 				27795D7027977FEC00D6164E /* ErrorSheetView.swift in Sources */,
 				27DC2B91278B78B500944DC7 /* SQSQueue.swift in Sources */,
