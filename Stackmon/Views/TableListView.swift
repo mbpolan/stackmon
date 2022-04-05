@@ -18,7 +18,12 @@ protocol TableColumn: Identifiable, Hashable {
 protocol TableRowAction: Identifiable {
     associatedtype T
     var label: String { get }
+    var isDefault: Bool { get }
     var isDivider: Bool { get }
+}
+
+extension TableRowAction {
+    var isDefault: Bool { false }
 }
 
 protocol TableCellData: Identifiable {
@@ -78,6 +83,7 @@ struct TableListView<DataType: TableCellData, ColumnType, RowActionType: TableRo
                                 .id("header\(column.id)")
                             }
                             
+                            // lay out the data by building each row independently
                             ForEach(data.indices, id: \.self) { rowIndex in
                                 ForEach(configuration.columns.indices, id: \.self) { columnIndex in
                                     VStack(spacing: 0) {
@@ -138,14 +144,23 @@ fileprivate struct TableListCellView<DataType: TableCellData, RowActionType: Tab
         .frame(maxWidth: .infinity)
         .contentShape(Rectangle())
         .contextMenu {
-            ForEach(rowActions) { action in
+            ForEach(contextMenuActions) { action in
                 Button(action.label) { onRowAction(action, datum) }
                 if action.isDivider {
                     Divider()
                 }
             }
         }
+        .onTapGesture(count: 2, perform: {
+            guard let `default` = rowActions.first(where: { $0.isDefault }) else { return }
+            
+            onRowAction(`default`, datum)
+        })
         .onTapGesture(perform: onTapGesture)
+    }
+    
+    private var contextMenuActions: [RowActionType] {
+        return rowActions.filter { !$0.isDefault }
     }
 }
 

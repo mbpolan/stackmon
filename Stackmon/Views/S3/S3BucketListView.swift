@@ -55,7 +55,7 @@ struct S3BucketListView: View {
     
     private func handleRowAction(_ action: RowAction, _ datum: S3Bucket) {
         switch action {
-        case .browse:
+        case .default, .browse:
             onBrowse(datum)
         case .delete:
             onDelete(datum)
@@ -108,6 +108,7 @@ extension S3BucketListView {
     enum RowAction: TableRowAction, CaseIterable {
         typealias T = Self
         
+        case `default`
         case browse
         case delete
         
@@ -115,10 +116,21 @@ extension S3BucketListView {
         
         var label: String {
             switch self {
+            case .default:
+                return ""
             case .browse:
                 return "Browse"
             case .delete:
                 return "Delete"
+            }
+        }
+        
+        var isDefault: Bool {
+            switch self {
+            case .default:
+                return true
+            default:
+                return false
             }
         }
         
